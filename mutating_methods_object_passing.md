@@ -99,6 +99,8 @@ If a method modifies one of it's arguments during execution, it is said to be _m
 
 Many mutating methods use `!` at the end of their names to signify this side-effect. There are some methods, however, that do not have this indicator, such as `Array#push` and `String#concat`. If you write any mutating methods in your own code, it's a good idea to include the `!` in their name.
 
+- [ ] TODO generate list of mutating methods that do not contain `!` and link here
+
 #### Indexed Assignment
 
 **Indexed assignment** is mutating even though it appears to resemble regular assignment operations, which are non-mutating. Indexed assignment occurs when a single element in a collection (such as a String, Array, or Hash) is re-assigned. Because the new object created in reassignment is only a copy of _a single element_, the reference for the collection as a whole remains the same. In this case, we consider the collection as a whole to have been mutated.

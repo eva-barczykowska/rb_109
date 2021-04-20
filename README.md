@@ -6,8 +6,15 @@ Review material and notes to prepare for the RB109 Assessment.
 
 - [x] Create local variable scope document
 - [x] Create mutating vs non-mutating methods document
+  - [ ] Generate list of mutating methods that do not contain `!`
 - [x] Create pass-by-reference vs pass-by-value document (within mutating vs non-mutating methods)
 - [ ] Create document for working with collections
+  - [x] Element reference
+  - [ ] Conversion
+  - [ ] Element assignment
+  - [ ] Iteration
+  - [ ] Transformation and Selection
+  - [ ] Creating generic collection methods
 - [ ] Create document for popular collection methods
 - [ ] Create document for variables as pointers
 - [ ] Create document for puts vs return
