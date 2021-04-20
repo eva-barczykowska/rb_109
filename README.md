@@ -5,8 +5,8 @@ Review material and notes to prepare for the RB109 Assessment.
 ## To-Do
 
 - [x] Create local variable scope document
-- [ ] Create mutating vs non-mutating methods document
-- [ ] Create pass-by-reference vs pass-by-value document (should this be within mutating vs non-mutating methods?)
+- [x] Create mutating vs non-mutating methods document
+- [x] Create pass-by-reference vs pass-by-value document (within mutating vs non-mutating methods)
 - [ ] Create document for working with collections
 - [ ] Create document for popular collection methods
 - [ ] Create document for variables as pointers
