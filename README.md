@@ -10,9 +10,9 @@ Review material and notes to prepare for the RB109 Assessment.
 - [x] Create pass-by-reference vs pass-by-value document (within mutating vs non-mutating methods)
 - [ ] Create document for working with collections
   - [x] Element reference
-  - [ ] Conversion
-  - [ ] Element assignment
-  - [ ] Iteration
+  - [x] Conversion
+  - [x] Element assignment
+  - [x] Iteration
   - [ ] Transformation and Selection
   - [ ] Creating generic collection methods
 - [ ] Create document for popular collection methods
@@ -27,3 +27,7 @@ Review material and notes to prepare for the RB109 Assessment.
 - [ ] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
 - [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [ ] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
+
+## Concepts to Review
+
+- [ ] Using a basic loop to iterate over hashes

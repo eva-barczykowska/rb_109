@@ -126,3 +126,95 @@ hsh[:infinity]  # => nil (valid hsh value)
 hsh.fetch(:infinity)  # => nil
 hsh.fetch(:three)     # => KeyError
 ```
+
+## Conversion
+
+Strings and arrays are structured similarly (zero-based index) so it's easy to convert between the two.
+
+- `String#chars` returns an array in which each element in a single character from the calling string.
+- `Array#join` returns a string with the elements of the array joined together. You can pass it a _delimiter_ which will be input between each element in the calling array once it is converted to a string.
+- `String#split` is a good choice when you want to convert a string into an array of individual sub-strings rather than single characters. You pass it the character(s) to split along as an argument, and this will not be included in the resulting sub-string elements. The default is a `' '`.
+
+You can also convert between hashes and arrays, but you need to be aware of the structural necessities to do so.
+
+- `Hash#to_a` returns a two-dimensional array in which each sub-array has two elements; each key-value pair from the calling hash.
+- `Array#to_h` is usually invoked by a two-dimensional array in which each sub-array has two elements, and returns a hash in which each sub-array's elements are the collection's key-value pairs. If you need to convert an array of a different data structure to a hash, you can pass this method a block which returns a two-element array, and these elements will form the key-value pairs in the new hash.
+
+## Element Assignment
+
+Change individual element values within a collection by combining the assignment operator with element reference. Note that this is _a destructive action_ that permanently modifies the collection (see [Indexed Assignment](mutating_methods_object_passing.md#indexed-assignment)).
+
+- To change the value of a specific character within a string, use `String#[]` combined with the assignment operator.
+
+  ```ruby
+  string = "Fix my tupo!"
+  string[8] = 'y'
+  puts string       # => "Fix my typo!"
+  ```
+
+- Use `Array#[]` to change the value of a specific element within the array. You can also use any of the abbreviated assignment operators (syntactical sugar) to manipulate certain types of data.
+
+  ```ruby
+  array = [1, 2, 4, 4, 5, 6]
+  array[2] -= 1
+  p array           # => [1, 2, 3, 4, 5, 6]
+  ```
+
+- Use `Hash#[]` with the desired key to change a corresponding value.
+
+  ```ruby
+  hsh = { orchid: 'plant', rosemary: 'plant' }
+  hsh[:orchid] = 'flower'
+  hsh[:rosemary] = 'herb'
+  p hsh             # => {orchid: 'flower', rosemary: 'herb' }
+  ```
+
+## Iteration
+
+### Basic Looping
+
+You can use a basic loop (with `Kernal#loop`) to iterate over the elements in a collection. There are four elements required for such a construct:
+
+1. **Loop**: block of code that gets repeated (note that when passed to `Kernal#loop` this creates an [inner scope](variable_scope.md#scopes-with-a-block)).
+2. **Counter**: variable that tracks the number of iterations
+3. Some way to **retrieve* the current value (current element in the collection)
+4. Some way to exit the loop (such as a `break` statement)
+
+```ruby
+array = ['one', 'two', 'three', 'four']
+counter = 0
+
+loop do
+  puts array[counter]
+  counter+= 1
+  break if counter >= array.length
+end
+
+# => 'one'
+# => 'two' ... etc
+```
+
+The iteration counter is often used to represent index, since they both start at 0 and are incremented by 1 each time through the loop. In this case, the length of the collection will represent an index that is out of bounds, so make sure to break out of the loop before that is reached.
+
+### Iterating over Hashes
+
+Hashes have key-value pairs, rather than indexes, so a simple counter variable can't be used to iterate over the hash. Instead, create an array containing all the keys in the hash (`Hash#keys`). Then, iterate over the array of keys, and save each key into a variable. Finally, use that variable to retrieve the appropriate value of the hash.
+
+```ruby
+books_in_stock = {
+  'sci-fi' => 125,
+  'romance' => 156,
+  'literature' => 231
+}
+
+books = books_in_stock.keys
+counter = 0
+
+loop do
+  break if counter >= books_in_stock.length
+  current_book = books[counter]
+  current_book_quantity = books_in_stick[current_book]
+  puts "The store has #{current_book_quantity} #{current_book} books."
+  counter += 1
+end
+```
