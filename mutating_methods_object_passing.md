@@ -1,4 +1,6 @@
-# Mutating and Non-Mutating Methods
+# Mutating Methods and Object Passing
+
+## Mutating and Non-Mutating Methods
 
 One way to categorize Ruby methods is splitting those that are **mutating** from those that do not. A **mutating method** is one that causes some kind of permanent change to either the object that calls it or one of it's arguments. **Non-mutating methods** will not be able to cause a permanent change to the Objects they manipulate. Instead, they return a new object, whose value can be captured by saving it to a variable.
 
@@ -25,11 +27,11 @@ puts "'#{b}' is the object located at #{b.object_id}"
 # => 'STRING' is the object located at 300
 ```
 
-## Non-Mutating Methods
+### Non-Mutating Methods
 
 A non-mutating method is one that does not modify the calling object or any of it's arguments. Often in documentation these methods are said to return `new_obj` instead of `self`. Note that when dealing with **immutable object** (those that cannot be changed, such as integers), all methods can be considered non-mutating.
 
-### Variable assignment
+#### Variable assignment
 
 Variable assignment is always non-mutating. This is because it causes the variable to point to a _new_ object, rather than changing the one it previously referenced.
 
@@ -91,13 +93,13 @@ a = a.capitalize!     # => 'Hello' (returns `self` the same object modified)
 a.object_id           # => 440
 ```
 
-## Mutating Methods
+### Mutating Methods
 
 If a method modifies one of it's arguments during execution, it is said to be _mutating with respect to its arguments_. This is less common than a method which is _mutating with respect to its caller_, which occurs when a method permanently modifies the calling object.
 
 Many mutating methods use `!` at the end of their names to signify this side-effect. There are some methods, however, that do not have this indicator, such as `Array#push` and `String#concat`. If you write any mutating methods in your own code, it's a good idea to include the `!` in their name.
 
-### Indexed Assignment
+#### Indexed Assignment
 
 **Indexed assignment** is mutating even though it appears to resemble regular assignment operations, which are non-mutating. Indexed assignment occurs when a single element in a collection (such as a String, Array, or Hash) is re-assigned. Because the new object created in reassignment is only a copy of _a single element_, the reference for the collection as a whole remains the same. In this case, we consider the collection as a whole to have been mutated.
 
@@ -128,7 +130,7 @@ a.each { |element| puts element.object_id }
 # => 7
 ```
 
-### Concatenation
+#### Concatenation
 
 The shovel concatenation operator `<<` used with collections such as strings and arrays may function similarly to `+=`, however it is *mutating*, whereas reassignment operations are not.
 
@@ -148,33 +150,52 @@ puts b              # => 'abcdef'
 puts b.object_id    # => 540
 ```
 
-# Object Passing
+## Object Passing
 
-## What is Object Passing?
+### What is Object Passing?
 
-Object passing is the way in which different programming languages pass objects into methods. ost of the time, these objects are either treated as "references" or "pointers" to the actual object in memory, or as "values", which are considered to be copies of the original object in memory. 
+Object passing is the way in which different programming languages pass objects into methods. ost of the time, these objects are either treated as "references" or "pointers" to the actual object in memory, or as "values", which are considered to be copies of the original object in memory.
 
 **Pass by reference**: variables act as pointers, and contain "references" to the actual object.
 
-  - `'Object'` is a string literal object
-  - `a = 'Object'` we assign the string literal to the variable `a`
-  - `a` now contains a **reference** to `'Object'`, which can be revealed by calling the method `object_id`
-  - When we pass `a` into a method, the reference to that original object in memory is passed in
-  - This can be demonstrated via a **mutating method**, which affects the original object
+- `'Object'` is a string literal object
+- `a = 'Object'` we assign the string literal to the variable `a`
+- `a` now contains a **reference** to `'Object'`, which can be revealed by calling the method `object_id`
+- When we pass `a` into a method, the reference to that original object in memory is passed in
+- This can be demonstrated via a **mutating method**, which affects the original object
 
-    ``` ruby
-    def change_object(string)
-      string.upcase!
-    end
+  ``` ruby
+  def change_object(string)
+    string.upcase!
+  end
 
-    a = 'Object'
-    puts a                  # => 'Object'
-    change_object(a)
-    puts a                  # => 'OBJECT'
-    ```
+  a = 'Object'
+  puts a                  # => 'Object'
+  change_object(a)
+  puts a                  # => 'OBJECT'
+  ```
 
 **Pass by value**: when objects are passed to a method, only a _copy_ of the original object (or _value_) will be passed to the method. This means that any manipulations performed on the object within the method will have no effect on the original object.
 
-  - Ruby is not pass by value, but sometimes it can act like it is, when a copy is generated within a method and reassigned to the variable in question.
-  - This breaks the link between the variable and the object it references
-  - 
+- Ruby is not pass by value, but sometimes it can act like it is, when a copy is generated within a method and reassigned to the variable in question.
+- This breaks the link between the variable and the object it references
+- Below we can see that a copy is made when we pass `a` into the method (because of variable reassignment). The original object referenced by `a`, therefore, is not modified by the method
+
+  ```ruby
+  def change_object(string)
+    string += "!"
+  end
+
+  a = "Value"
+  puts a                      # => "Value"
+  puts change_object(a)       # => "Value!"
+  puts a                      # => "Value"
+  ```
+
+### What happens in Ruby?
+
+In the case of immutable objects, or when dealing with a non-mutating method, Ruby _acts_ like a pass by value language. In the case of mutating methods, it acts like a pass by reference language. So what's really going on here?
+
+In reality, Ruby is a pass by reference language, but it passes a _copy_ of that reference when passing Objects into methods. This is known as **pass by reference value**.
+
+The key here is the fact that variables act as **pointers**. That is, they contain a reference to the associated object in memory. Just because we pass this reference into a method doesn't necessarily mean the object will automatically be mutated. Non-muting operations, such as reassignment, can change the pointer by causing the variable to point to a different object in memory. Immutable objects, such as integers, cannot be modified. In these cases, a new object is generated and the variable in question then references that object after the operation is concluded.

@@ -16,7 +16,7 @@ Review material and notes to prepare for the RB109 Assessment.
 - [ ] Create document for implicit return value of method invocation and blocks
 - [ ] Create document for discussing sorting processes, specifically `Array#sort`
 - [ ] Link documents together by creating links in interrelated sections
-- [ ] Create "Key Points" section at the top of _each_ document, with links to the corresponding explanations within the document
+- [ ] Consolidate notes to a "Key Points" section at the top of _each_ document, with links to the corresponding explanations within the document
 - [ ] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
 - [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [ ] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
