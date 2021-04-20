@@ -6,7 +6,7 @@ A collection is a Ruby object or data structure that is made up on individual el
 
 ## Element Reference
 
-**Element reference** refers to thee way we can reference, and therefore manipulate, individual elements within a collection.
+**Element reference** refers to the way we can reference, and therefore manipulate, individual elements within a collection.
 
 ### String Element Reference
 
