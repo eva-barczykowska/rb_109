@@ -218,3 +218,93 @@ loop do
   counter += 1
 end
 ```
+
+## Selection and Transformation
+
+Selection and transformation are both processes that add a _set of rules_ to the four basic elements of looping. **Selection** uses these rules to determine _which elements_ are selected. **Transformation** uses the rules to determine _how_ to transform each element.
+
+### Selection
+
+Selection describes the process of picking certain elements out of a collection based on some condition or expression that evaluates to a Boolean value.
+
+For example, the code below _selects_ elements from the original array and adds them to a new array based on the conditional (is the element even?), returning a new array consisting of the sub-set of elements that are even.
+
+```ruby
+array = [1, 2, 3, 4, 5, 6, 7]
+counter = 0
+evens = []
+
+loop do
+  break if counter >= array.length
+  if array[counter].even?
+    evens << array[counter]
+  end
+  counter += 1
+end
+
+p array   # => [1, 2, 3, 4, 5, 6, 7]
+p evens   # => [2, 4, 6]
+```
+
+### Transformation
+
+Transformation describes the process of manipulating each element in the collection, and using some evaluated expression to transform each element. Unless the process is stopped early, it will return the same amount of elements in the original collection. It is considered bad practice to modify the length of a collection during transformation.
+
+The code below _destructively_ transformed an array by iterating through and adding 1 to each element by using [element assignment](#element-assignment).
+
+```ruby
+array = [1, 2, 3, 4, 5, 6, 7]
+counter = 0
+
+loop do
+  break if counter >= array.length
+  array[counter] += 1
+  counter += 1
+end
+
+array   # => [2, 3, 4, 5, 6, 7, 8]
+```
+
+When performing transformation be aware of what's returned. Is it a new collection of transformed values or has the original collection been mutated?
+
+### Extracting to Methods
+
+Both selection and transformation are _specific actions_ that lend themselves to being separated into a discreet method. Hence the previous language of _returning_ a new or the original collection based on the rules of the method itself.
+
+Because of Ruby's implied return, end methods with what you want the return values to me.
+
+Methods can contain criteria for _both_ transformation and selection, in which case they will only transform a _subset_ of elements in the collection being manipulated.
+
+Make these methods as generic as possible by allowing for additional parameters to specify some criteria for selection or transformation.
+
+```ruby
+# not a very generic method, returns new array
+def adds_one(numbers)
+  counter = 0
+  added_numbers = []
+
+  loop do
+    break if counter >= numbers.length
+    added_numbers << numbers[counter] + 1
+    counter += 1
+  end
+
+  added_numbers
+end
+
+# more generic, you can choose what to add
+def adds(numbers, to_add)
+  counter = 0
+  added_numbers = []
+
+  loop do
+    break if counter >= numbers.length
+    added_numbers << numbers[counter] + to_add
+    counter += 1
+  end
+
+  added_numbers
+end
+```
+
+In general, don't hard code what you don't have to. Using a descriptive variable makes code easier to read as well as more versatile in the long run.
