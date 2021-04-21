@@ -19,6 +19,12 @@
 7. [Sorting](#sorting)
     - [Comparison](#comparison)
     - [Sorting Methods](collection_methods.md#sorting-methods)
+8. [Nested Data Structures](#nested-data-structures)
+    - [Referencing Collection Elements](#referencing-collection-elements)
+    - [Updating Collection Elements](#updating-collection-elements)
+    - [Variable Reference in Nested Collections](#variable-reference-in-nested-collections)
+    - [Shallow Copy](#shallow-copy)
+    - [Freezing Objects](#freezing-objects)
 
 ## What is a collection?
 
@@ -392,3 +398,228 @@ Arrays are also compared element by element using `Array#<=>`. Similarly with `S
 ### Sorting Methods
 
 See: [Sorting Methods](collection_methods.md#sorting-methods)
+
+## Nested Data Structures
+
+A **nested data structure** is any kind of collection that contains other collection(s) as one or more of it's elements. These can include; an array in which each element is a sub-array, hashes in which either the key or the value (more likely the value) is another hash, arrays whose elements are hashes, or hashes whose keys or values are arrays. Nested data structures are not restricted to 2-levels, such as an array containing and array containing an array.
+
+### Referencing Collection Elements
+
+Each element of a collection, whether an upper level collection with collections as it's elements, or an inner collection, uses the [element reference](#element-reference) method standard for that particular data type. To reference specific elements of an inner sub-collection, chain element reference together.
+
+```ruby
+# nested arrays
+array = [[1, 2], [3, 4], [5, 6]]
+array[0]                # => [1, 2]
+array[0][1]             # => 2
+array[0, 2]             # => [[1, 2], [3, 4]]
+array[0, 2][1][0]       # => 3
+
+# an array of hashes
+people = [{name: "Anne", color: "purple"}, {name: "Bill", color: "blue"}]
+people[0]               # => {name: "Anne", color: "purple"}
+people[0][:name]        # => "Anne"
+people[0][:name][-1]    # => "e"
+
+# a hash of arrays
+words = { nouns: %w(shoe ear tea book), verbs: %w(run swim jump dance) }
+words[:nouns]           # => ["shoe", "ear", "tea", "book"]
+words[:nouns][0]        # => "shoe"
+words[:nouns][2..-1]    # => ["tea", "book"]
+words[:nouns][0][0]     # => "s"
+
+# a hash of hashes
+friends = { "Ashley" => { job: 'designer', birthday: '8/23' }, 
+            "Joe" => { job: 'bartender', birthday: '7/12' },
+            "Sue" => { job: 'producer', birthday: '2/22' }}
+friends["Joe"]          # => { job: 'bartender', birthday: '7/12' }
+friends["Joe"][:job]    # => "bartender"
+friends["Joe"][:job][0] # => "b"
+
+# more complex structures
+game_data = { player: { hand: [{ suit: 'Clubs', value: 'Ace'}, 
+                               { suit: 'Hearts', value: 'Queen'}]
+                          total: 21,
+                          score: 0 },
+              dealer: { hand: [{ suit: 'Clubs', value: '10'},
+                               { suit: 'Spades', value: '9'},
+                               { suit: 'Hearts', value: '2'}]
+                          total: 21,
+                          score: 0 } }
+# complex structures like this help extract data in more complex programs
+game_data[:player][:hand] # => [{ suit: 'Clubs', value: 'Ace'}, { suit: 'Hearts', value: 'Queen'}]
+game_data[:player][:score] # => 0
+game_data[:player][:hand].each { |card| p card }
+# => { suit: 'Clubs', value: 'Ace' }
+# => { suit: 'Hearts', value: 'Queen'}
+```
+
+### Updating Collection Elements
+
+You can chain together [element reference](#element-reference) with [element assignment](#element-assignment) to reassign individual collection elements anywhere within a nested data structure. Note that reassigning or updating individual collection elements **is a destructive action that permanently modifies the collection**.
+
+```ruby
+array = [[1, 1], [3, 4], [5, 6]]
+array[0][1] = 2   # array[0] is element reference, returns [1, 1]
+                  # [1] = 2 is element reassignment we chain onto the return value [1, 1]
+array             # => [[1, 2], [3, 4], [5, 6]]
+```
+
+You can insert elements into a sub-array by chaining [element reference](#element-reference) with _appending an element_.
+
+```ruby
+words = { nouns: %w(shoe ear tea book), verbs: %w(run swim jump dance) }
+words[:nouns] << "gum"  # => ["shoe", "ear", "tea", "book", "gum"]
+
+# words[:nouns] is element reference, returns ["shoe", "ear", "tea", "book"]
+# << "gum" Array#<< method is chained onto this return value
+
+words
+# => {:nouns=>["shoe", "ear", "tea", "book", "gum"], :verbs=>["run", "swim", "jump", "dance"]}
+```
+
+It's possible to ass another array as an element of a sub-array, creating a **three layer** nested data structure.
+
+```ruby
+array = ["layer one", ["layer two"]]
+array[0]    # => "layer one"
+array[1]    # => ["layer two"]
+array[1][0] # => "layer two"
+
+array[1] << ["layer three"]
+array
+# => ["layer one", ["layer two", ["layer three"]]]
+array[1][1][0]  # => "layer three"
+```
+
+To add key-value pairs to hashes nested within an array, first reference the desired hash by using array element reference, then update the hash using proper hash syntax.
+
+```ruby
+people = [{name: "Anne", color: "purple"}, {name: "Bill", color: "blue"}]
+
+people[0][:season] = "Summer"
+# people[0] is array element reference returing the value {name: "Anne", color: "purple"}
+# [:season] = "Summer" adds the key :season with the associated value "Summer" to the returned hash
+
+people
+# => people = [{name: "Anne", color: "purple", season: "Summer"}, {name: "Bill", color: "blue"}]
+```
+
+### Variable Reference in Nested Collections
+
+Variables can reference inner collections directly. In this case, they act as pointers and _point_ to that object in memory. Both element reference and the variable, then, are two different ways of referencing the same object.
+
+Any changes made to the variable that references an inner collection will be reflected in the collection as a whole, since they both reference the same object.
+
+```ruby
+a = [1, 2]
+b = [3, 4]
+array = [a, b]
+array                                 # => [[1, 2], [3, 4]]
+array[0].object_id == a.object_id     # => true
+
+a[0] = 0
+a                                     # => [0, 2]
+a[0]                                  # => [0, 2]
+array                                 # => [[0, 2], [3, 4]]
+```
+
+### Shallow Copy
+
+The methods `dup` and `clone` are ways of creating copies of various Ruby objects. However, _only the object the method is called on is copied_. This means that if the calling object contains other objects (such as in a collection or nested collection), those objects are _shared_ rather than copied. The elements within a copied collection will reference the same object in memory as the original collection, and this is known as a **shallow copy**.
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_a.object_id == arr_b.object_id    # => false
+arr_a[0].object_id == arr_b.object_id # => true
+```
+
+Calling a destructive method on an individual element within a collection that is a shallow copy will result in a change to both collections referenced by each variable `arr_a` and `arr_b`. This is because every element in `arr_b` is a reference to the object references by the corresponding element in `arr_a`.
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b[1].upcase!
+arr_b             # => ["ant", "BAT", "cat"]
+arr_a             # => ["ant", "BAT", "cat"]
+```
+
+Calling a destructive method on the collection copy _as a whole_ will cause the collection itself to be changed, rather than the individual elements. In this case, the original collection `arr_a` will remain unchanged.
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.map! { |word| word.upcase } 
+# note that we do not use a destructive method here, and instead return a new string object
+# This gets assigned to each element in arr_b, breaking the link between shared elements
+
+arr_b # => ["ANT", "BAT", "CAT"]
+arr_a # => ["ant", "bat", "cat"]
+```
+
+However, we can still destructively change the original copied collection within a method call on the copied collection as a whole, if we mutate any of the elements within a block that gets passed to it.
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.each { |word| word.upcase! }
+# here we call the destructive method upcase! on each element
+# it returns the same object that called it
+# the link between elements in arr_a and arr_b is never broken
+
+arr_b # => ["ANT", "BAT", "CAT"]
+arr_a # => ["ANT", "BAT", "CAT"]
+```
+
+If you are working with an outer array or hash, destructive methods will act like reassignment, and break the link between shared objects. Using destructive methods on inner objects or inner collections, on the other hand, will cause shared objects to be changed permanently _wherever_ they are referenced.
+
+### Freezing Objects
+
+Ruby objects can be **frozen** to prevent them from being modified. To do so, we use the `freeze` method.
+
+```ruby
+string = 'hello'
+string.freeze
+string << ' world'
+# => FrozenError: cannot modify frozen string
+```
+
+Only mutable objects can be frozen; immutable objects, since they cannot be changed, are ostensibly already frozen. You can check to see if an object is frozen using `frozen?`.
+
+Like `dup` and `clone`, the `freeze` method _only freezes the object that calls it_. Therefore, if `freeze` is called on a collection that contains other objects as it's elements, those object **will not** be frozen.
+
+Note that reassignment of individual elements within a frozen collection will not work, because it creates a new object and tries to add it to the collection as a whole.
+
+```ruby
+array = ["apple", "book", "car", "dog"]
+array.freeze
+
+array << "ear"            # => FrozenError
+array[0] = 'ant'          # => FrozenError (reassignment)
+array[0] << 'sss'         # => 'applesss'
+array                     # => ["applessss", "book", "car", "dog"]
+
+# nested array
+array = [[1, 2], [3]].freeze
+array[1] << 4
+array                     # => [[1, 2], [3, 4]]
+```
+
+If you use `clone` on a frozen object it will preserve the frozen state of that object, and you will not be able to modify the original or the copy. `dup`, however, **does not** preserve the frozen state of any object it copies, so you will be able to change the copy.
+
+```ruby
+arr_a = %w(apple book car).freeze
+arr_b = arr_a.clone
+arr_b << 'dog'            # => FrozenError
+
+arr_c = %w(dog egg fig).freeze
+arr_d = arr_d.dup
+arr_d << 'green'
+arr_d                     # => ['dog', 'egg', 'fig', 'green']
+arr_c                     # => ['dog', 'egg', 'fig']
+```

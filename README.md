@@ -15,7 +15,7 @@ Review material and notes to prepare for the RB109 Assessment.
   - [x] Iteration
   - [x] Transformation and Selection
   - [x] Sorting
-  - [ ] Nested Data Structures
+  - [x] Nested Data Structures
   - [ ] Working with Blocks
 - [x] Create document for popular collection methods
 - [ ] Create document for variables as pointers
