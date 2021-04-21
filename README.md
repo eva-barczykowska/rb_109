@@ -14,8 +14,10 @@ Review material and notes to prepare for the RB109 Assessment.
   - [x] Element assignment
   - [x] Iteration
   - [x] Transformation and Selection
-  - [x] Creating generic collection methods
-- [ ] Create document for popular collection methods
+  - [x] Sorting
+  - [ ] Nested Data Structures
+  - [ ] Working with Blocks
+- [x] Create document for popular collection methods
 - [ ] Create document for variables as pointers
 - [ ] Create document for puts vs return
 - [ ] Create document for false vs nil and "truthiness"
@@ -27,6 +29,7 @@ Review material and notes to prepare for the RB109 Assessment.
 - [ ] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
 - [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [ ] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
+- [ ] Create some "practice tests" that I can use for timed practice
 
 ## Concepts to Review
 

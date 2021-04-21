@@ -210,3 +210,159 @@ odds, evens = (1..10).partition { |num| num.odd? }
 p odds  # => [1, 3, 5, 7, 9]
 p evens # => [2, 4, 6, 8, 10]
 ```
+
+## Sorting Methods
+
+### sort
+
+`sort` returns an array containing all the items in the calling collection sorted. It can be called either with or without a block.
+
+When called without a block, it will use the version of `<=>`specific to the object types within the calling collection to determine the order of the items to be returned.
+
+Calling `sort` with a block gives a way to control how the items are sorted. The block takes two arguments, the two items to be compared, and the return value of the block must be `-1`, `1`, or `0` (i.e. it should probably use `<=>`). You can put additional code in the block if you need to, as long as its return value is one of those supported by `<=>`.
+
+```ruby
+nums = [3, 2, 6, 4, 8, 1, 5, 9, 0]
+
+# sort without a block
+nums.sort
+# => [0, 1, 2, 3, 4, 5, 6, 8, 9]
+
+# return an array in descending order
+nums.sort { |a, b| b <=> a }
+# => [9, 8, 6, 5, 4, 3, 2, 1, 0]
+
+# compare by other criteria
+['aaa', 'a', 'aaaaa', 'aa', 'aaaa'].sort do |a, b|
+  a.size <=> b.size
+end
+# => ["a", "aa", "aaa", "aaaa", "aaaaa"]
+
+# block with additional code
+['aaa', 'a', 'aaaaa', 'aa', 'aaaa'].sort do |a, b|
+  puts "a has #{a.size} letters and b has #{b.size} letters"
+  a.size <=> b.size
+end
+```
+
+Note that `Array#sort` has a destructive equivalent `Array#sort!`, but `Enumerable#sort` (which is the method available to Hashes and other collections) does not have a destructive equivalent.
+
+### sort_by
+
+`sort_by` is useful for sorting items via a specific criteria, or sorting items in a hash. It takes a block, and each element in the calling collection is assigned to (one of) the block parameter(s). Then, it uses the return value of the block to determine how the collection should be sorted. `sort_by` always returns an array.
+
+Unlike `sort`, the block does not need to return `-1`, `1`, `0` or `nil`, only the criteria by which you want the collection to be sorted.
+
+```ruby
+# sort by digit in the 1's place
+[123, 432, 543, 642, 543, 256].sort_by do |num|
+  num.digits.first
+end
+# => [432, 642, 123, 543, 543, 256]
+
+# sort by area code
+contacts = {
+  Jenny: '230-867-5309',
+  Skylar: '432-555-5555',
+  joe: '230-432-1234',
+  Jimmy: '123-123-1234'
+}
+contacts.sort_by do |_, number|
+  number.split('-')[0]
+end
+# => [[:Jimmy, "123-123-1234"], [:Jenny, "230-867-5309"], [:joe, "230-432-1234"], [:Skylar, "432-555-5555"]]
+
+# sort by name in alphabetical order
+contacts.sort_by do |name, _|
+  name.capitalize
+end
+# => [[:Jenny, "230-867-5309"], [:Jimmy, "123-123-1234"], [:joe, "230-432-1234"], [:Skylar, "432-555-5555"]]
+```
+
+Note that `Array#sort_by` has a destructive equivalent `Array#sort_by!`, but `Enumerable#sort_by` (which is the method available to hashes and other collections) does not have a destructive equivalent.
+
+## Comparison Methods
+
+### min
+
+`Enumerable#min` returns the object in the calling collection with the "minimum" value. You can pass it a block to determine how elements are compared. The block takes two arguments (items being compared) and must return either `-1`, `1`, or `0`. You can also pass it an argument `n` in order to return `n` number minimum elements from the calling collection. This subgroup will be returned as a sorted array. The argument can be used both with and without the block.
+
+```ruby
+words = %w(cantaloupe apple durian bananas)
+
+# default uses <=> to compare collection elements
+words.min                                 # = > "apple"
+words.min(2)                              # => ["apple", "bananas"]
+
+# with a block
+words.min { |a, b| a.size <=> b.size }    # => "apple"
+words.min(2) { |a, b| a.size <=> b.size } # => ["apple", "durian"]
+```
+
+### min_by
+
+`Enumerable#min_by` is passed a block when invoked, and returns the element from the calling collection for which the block returns the minimum value. Like `Enumerable#min` you can also pass it an argument, `n`, in order to return `n` number of minimum elements as an array sorted by the value given by the block.
+
+```ruby
+words = %w(cantaloupe apple durian)
+
+# sort by amount of vowels
+words.min_by { |word| word.count("aeiou") }
+# => "apple"
+words.min_by(2) { |word| word.count("aeiou") }
+# => ["apple", "durian"]
+```
+
+### max
+
+`Enumerable#max` returns the object in the collection with the maximum value. By default, the method uses `<=>` to compare elements within the calling collection. Alternatively, you can pass it a block to determine how elements are compared. The block takes two arguments (the items being compared) and must return either `-1`, `1`, or `0`. The method also takes optional argument `n`, either with or without the block, which causes the method to return `n` number maximum elements in a sorted array.
+
+```ruby
+words = %w(cantaloupe apple durian bananas)
+
+# default uses <=> to compare collection elements
+words.max                                 # = > "durian"
+words.max(2)                              # => ["durian", "cantaloupe"]
+
+# with a block
+words.max { |a, b| a.size <=> b.size }    # => "cantaloupe"
+words.max(2) { |a, b| a.size <=> b.size } # => ["cantaloupe", "bananas"]
+```
+
+### max_by
+
+`Enumerable#max_by` is passed a block when invoked, and returns the element from the calling collection for which the block returns the maximum value. It also takes an optional argument, `n`, which when given causes the method to return `n` number of maximum elements in an array sorted by the return value of the block.
+
+```ruby
+words = %w(cantaloupe apple durian)
+
+# sort by amount of vowels
+words.max_by { |word| word.count("aeiou") }
+# => "cantaloupe"
+words.max_by(2) { |word| word.count("aeiou") }
+# => ["cantaloupe", "durian"]
+```
+
+### minmax
+
+`Enumerable#minmax` returns a 2 element array which contains both the minimum and maximum values in the calling collection. By default, the method will evaluate all elements with `<=>`. Alternatively, you can pass it a block to determine how elements should be compares. The block takes two arguments (the items to compare) and should return a value of `-1`, `1`, or `0`.
+
+```ruby
+words = %w(cantaloupe apple durian bananas)
+
+words.minmax
+# => ["apple", "durian"]
+words.minmax { |a, b| a.size <=> b.size }
+# => ["apple", "cantaloupe"]
+```
+
+### minmax_by
+
+`Enumerable#minmax_by` is passed a block when invoked. It then returns a two element array in which the first element is that for which the block returns the minimum value, and the second element is that for which the block returns the maximum value.
+
+```ruby
+words = %w(cantaloupe apple durian bananas)
+
+words.minmax_by { |word| word.count("aeiou") }
+# => ["apple", "cantaloupe"]
+```

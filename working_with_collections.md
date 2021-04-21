@@ -1,5 +1,25 @@
 # Ruby Collections
 
+1. [What is a collection?](#what-is-a-collection?)
+2. [Element Reference](#element-reference)
+    - [String Element Reference](#string-element-reference)
+    - [Array Element Reference](#array-element-reference)
+    - [Hash Element Reference](#hash-element-reference)
+    - [Element Reference Tricks](#element-reference-tricks)
+3. [Conversion](#conversion)
+4. [Element Assignment](#element-assignment)
+    - see also: [Indexed Assignment](mutating_methods_object_passing.md#indexed-assignment)
+5. [Iteration](#iteration)
+    - [Basic Looping](#basic-looping)
+    - [Iterating over Hashes](#iterating-over-hashes)
+6. [Selection and Transformation](#selection-and-transformation)
+    - [Selection](#selection)
+    - [Transformation](#transformation)
+    - [Extracting to Methods](#extracting-to-methods)
+7. [Sorting](#sorting)
+    - [Comparison](#comparison)
+    - [Sorting Methods](collection_methods.md#sorting-methods)
+
 ## What is a collection?
 
 A collection is a Ruby object or data structure that is made up on individual elements. Collections include Strings, Arrays, and Hashes, among other things.
@@ -308,3 +328,67 @@ end
 ```
 
 In general, don't hard code what you don't have to. Using a descriptive variable makes code easier to read as well as more versatile in the long run.
+
+## Sorting
+
+**Sorting** is the process of putting items in a collection into some kind of order based on a rule or set of rules. This is mainly done with arrays, because arrays are the data structure used when the order of elements is important, and each element in an array is access via an ordered index.
+
+While strings do not necessarily have access to sorting methods, since they are easily converted into arrays and back again, sorting operations are easily accomplished on them via this conversion.
+
+The process of sorting is accomplished by _comparing each element in the collection with the others_ and ordering them _based on the result_ of that comparison.
+
+### Comparison
+
+Ruby uses **the comparison method** `<=>` to evaluate comparisons between elements in a collection. Expressions using `<=>` need to be performed on two object of the same data type. They then return either a `-1`, `0`, or `1` to indicate whether the first object is greater than, less than, or equal to the second object.
+
+If the two operands are of different data types, they cannot be compared and `nil` is returned. The value returned by `<=>` is used by sorting methods to determine the order in which to place the items. Therefore, if `<=>` returns `nil`, the program will throw an `ArgumentError`.
+
+```ruby
+2 <=> 1       # => 1 (first operand is greater than second)
+1 <=> 2       # => -1 (first operand is less than second)
+2 <=> 2       # => 0 (both operands are equal)
+
+'b' <=> 'a'   # => 1 (greater than)
+'a' <=> 'b'   # => -1 (less than)
+'a' <=> 'a'   # => 0  (equal)
+
+1 <=> 'a'     # => nil (does not compare)
+```
+
+Different object types have different implementations for `<=>`. Numerical values, such as integers and floats, are relatively straightforward. The numerical values are compared according to where they lie on a standard number line. `2` is greater than `1`. `3` is less than `24`.
+
+Strings, however, are compares in **ASCIIbetical Order**.
+
+- Uppercase letters always come before lowercase (i.e. `'A'` is less than `'a'`). This holds true for all uppercase letters (`'Z'` is less than `'a'`).
+- Digits and most punctuation marks come before letters
+- Accented and other characters that are part of the extended ASCII table come after the main alphanumeric characters in the standard ASCII table.
+
+Strings are compared _character by character_ and are ordered as they would be found in a dictionary.
+
+- String beginning with a "lesser" letter in the ASCII table will come before those with a "greater" letter in the ASCII table (i.e. `'apple', 'assurance'` before `'banana'`).
+- In the case where all comparable characters are equal, but one string is longer than the other, the longer string will be considered to be "greater". (i.e. `'crab'` before `'crabby'`).
+
+```ruby
+'a' <=> 'b'         # => -1 (less than)
+'apple' <=> 'ape'   # => 1 (greater than)
+'cat' <=> 'catty'   # => -1 (less than)
+
+words = %w(card soap knife crab soapy coin sand king kill)
+words.sort
+# => ["card", "coin", "crab", "kill", "king", "knife", "sand", "soap", "soapy"]
+```
+
+Arrays are also compared element by element using `Array#<=>`. Similarly with `String#<=>`, when all the comparable elements in two arrays of different length are equal, the larger array will be considered to be "greater than".
+
+```ruby
+[0, 1, 2] <=> [1, 1, 2]     # => -1 (less than)
+[1, 1, 2] <=> [1, 2, 3]     # => -1 (less than)
+[1, 1, 2, 3] <=> [1, 1, 2]  # => 1 (greater than)
+
+[[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]].sort
+# => [[0, 1], [0, 1, 2], [2, 1, 4], [2, 4], [3, 2, 0], [3, 2, 5]]
+```
+
+### Sorting Methods
+
+See: [Sorting Methods](collection_methods.md#sorting-methods)
