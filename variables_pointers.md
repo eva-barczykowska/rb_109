@@ -1,5 +1,9 @@
 # Variables as Pointers
 
+1. [Assignment](#assignment)
+2. [Reassignment](#reassignment)
+3. [Immutable Objects](#immutable-objects)
+
 ## Assignment
 
 In Ruby, variables are basically containers that house _references_ to objects in memory. These objects are assigned to variables using an assignment statement which utilizes the assignment operator (`=`).
@@ -40,7 +44,7 @@ puts a                        # => "another string object"
 puts b                        # => "a string object"
 ```
 
-Above, local variable `a` is initialized and assigned the string object `"a string object"`. Then, local variable `b` is initialized and assigned to the object referenced by local variable `a`. Now both variables reference the same object in memory, which can be demonstrated by comparing the values returned by calling the method `object_id` on each. 
+Above, local variable `a` is initialized and assigned the string object `"a string object"`. Then, local variable `b` is initialized and assigned to the object referenced by local variable `a`. Now both variables reference the same object in memory, which can be demonstrated by comparing the values returned by calling the method `object_id` on each.
 
 Next, local variable `a` is reassigned to the string object `"another string object"`. This breaks the link between `a` and the object it originally referenced, `"a string object"`, causing it to reference the new object `"another string object"`. `b`, however, still references the original object `"a string object"`. This can be demonstrated by comparing the return values of calling `object_id` on each variable or simply outputting the values referenced by both `a` and `b`.
 
@@ -68,3 +72,11 @@ puts a            # => 4
 ```
 
 ![Pointers with immutable objects](./images/pointers_04.jpg)
+
+## Mutable Objects
+
+**Mutable objects** are objects that _can_ be changed. They include things like Strings and collection data types like Arrays and Hashes. Mutable objects can be changed by two ways, by **setter methods** or by being passed into a [mutating method](./mutating_methods_object_passing.md#mutating-methods).
+
+### Setter Methods
+
+A **setter method** is one that changes _a part_ of an object, such as when elements within a collection are re-assigned.
