@@ -168,7 +168,9 @@ You can also convert between hashes and arrays, but you need to be aware of the 
 
 ## Element Assignment
 
-Change individual element values within a collection by combining the assignment operator with element reference. Note that this is _a destructive action_ that permanently modifies the collection (see [Indexed Assignment](mutating_methods_object_passing.md#indexed-assignment)).
+Change individual element values within a collection by using a [setter method](./variables_pointers.md#setter-methods), also known as an "element assigner method". Element assignment may _look_ like it is using the assignment operator (`=`), but in fact this is not the case. Element assignment methods are discreet methods defined for each object type, such as `String#[]=`, `Array#[]`, and `Hash#[]=`. The way we can disguise them as actual assignment statements is part of Ruby's **syntactical sugar**.
+
+Note that this is _a destructive action_ that permanently modifies the collection (see [Indexed Assignment](mutating_methods_object_passing.md#indexed-assignment)).
 
 - To change the value of a specific character within a string, use `String#[]` combined with the assignment operator.
 

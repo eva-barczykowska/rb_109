@@ -26,7 +26,7 @@ different_scope
 
 The scope of any given variable is defined by _where the variable is initialized_. Different scopes are defined by different kinds of code boundaries in Ruby.
 
-#### Global vs Local Scope
+### Global vs Local Scope
 
 Variables with **global scope** are defined outside of any method definitions and can be accessed from anywhere in the program. In Ruby, global scope is limited to **constants** and **global variables**. Note that constants can be accessed even if they are initialized in inner scope (but this usually isn't done).
 
@@ -57,11 +57,11 @@ puts different_scope(message)
 # => "I am a local variable"
 ```
 
-#### Inner vs Outer Scope
+### Inner vs Outer Scope
 
 In Ruby, inner and outer scope is defined by a **block**. A **block** is a piece of code surrounded by either curly braces `{}` or `do..end` that is passed to a method invocation as an argument.
 
-Local variables defined in **outer scope** (i.e. outside the block) can be accessed from **inner scope** (i.e. inside the block). However, local variables defined in **inner scope** (inside the block) _cannot_ be accessed from **outer scope** (outside the block). 
+Local variables defined in **outer scope** (i.e. outside the block) can be accessed from **inner scope** (i.e. inside the block). However, local variables defined in **inner scope** (inside the block) _cannot_ be accessed from **outer scope** (outside the block).
 
 ```ruby
 x = "I am a local variable initialized in outer scope."
@@ -155,7 +155,7 @@ puts b                          # => NameError (out of scope)
 puts c                          # => Name Error(out of scope)
 ```
 
-#### Variable Shadowing
+### Variable Shadowing
 
 **Variable shadowing** blocks inner scope from accessing a specific local variable in outer scope. It occurs when a block parameter takes the same name as an already initialized local variable in outer scope. Variable shadowing causes the code within the block to reference the object the block parameter points to, rather than the object referenced by the local variable in outer scope with the same name. Further, it makes it so you cannot change or re-assign that outer scope local variable.
 
@@ -219,7 +219,7 @@ change_method(a)     # => returns 'reassigned in the method'
 puts a               # => 'local variable'
 ```
 
-Blocks within a method invocation will create an outer and inner scope within the method. These follow the normal rules of scoping as they would in the main function of the program. 
+Blocks within a method invocation will create an outer and inner scope within the method. These follow the normal rules of scoping as they would in the main function of the program.
 
 ```ruby
 def method_containing_block
