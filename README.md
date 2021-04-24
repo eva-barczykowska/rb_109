@@ -19,10 +19,10 @@ Review material and notes to prepare for the RB109 Assessment.
   - [ ] Working with Blocks
 - [x] Create document for popular collection methods
 - [x] Create document for variables as pointers
-- [ ] Create document for puts vs return
+- [x] Create document for puts vs return
 - [ ] Create document for false vs nil and "truthiness"
 - [ ] Create document for method definition and method invocation
-- [ ] Create document for implicit return value of method invocation and blocks
+- [x] Create document for implicit return value of method invocation and blocks
 - [ ] Link documents together by creating links in interrelated sections
 - [ ] Consolidate notes to a "Key Points" section at the top of _each_ document, with links to the corresponding explanations within the document
 - [ ] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
