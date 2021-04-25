@@ -20,7 +20,7 @@ Review material and notes to prepare for the RB109 Assessment.
 - [x] Create document for popular collection methods
 - [x] Create document for variables as pointers
 - [x] Create document for puts vs return
-- [ ] Create document for false vs nil and "truthiness"
+- [x] Create document for false vs nil and "truthiness"
 - [ ] Create document for method definition and method invocation
 - [x] Create document for implicit return value of method invocation and blocks
 - [ ] Link documents together by creating links in interrelated sections
@@ -28,4 +28,5 @@ Review material and notes to prepare for the RB109 Assessment.
 - [ ] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
 - [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [ ] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
-- [ ] Create some "practice tests" that I can use for timed practice
+- [x] Create some "practice tests" that I can use for timed practice
+- [ ] Take timed practice test
