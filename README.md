@@ -21,7 +21,7 @@ Review material and notes to prepare for the RB109 Assessment.
 - [x] Create document for variables as pointers
 - [x] Create document for puts vs return
 - [x] Create document for false vs nil and "truthiness"
-- [ ] Create document for method definition and method invocation
+- [x] Create document for method definition and method invocation
 - [x] Create document for implicit return value of method invocation and blocks
 - [ ] Link documents together by creating links in interrelated sections
 - [ ] Consolidate notes to a "Key Points" section at the top of _each_ document, with links to the corresponding explanations within the document
