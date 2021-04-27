@@ -311,6 +311,8 @@ Because both the local variable `animal` initialized in outer scope and the bloc
 
 ## Object Passing / Variables as Pointers
 
+### 12
+
 **Current time:** 3:08
 
 What does the following code return? What does it output? Why? What concept does it demonstrate?
@@ -328,3 +330,86 @@ On line 1 we initialize local variable `a` and assign it to the string object `"
 Then on line 3, we reassign local variable `a` to the string object `"not here"`. This breaks the link between `a` and the object it previously referenced (`"hi there"`). Now, both `a` and `b` point to separate objects in memory, the string `"not here"` and `"hi there"` respectively.
 
 This illustrates the concept of variables as pointers.
+
+### 13
+
+**Current time:** ??
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+What are `a` and `b`?
+
+```ruby
+a = "hi there"
+b = a
+a << ", Bob"
+```
+
+On line 1 we initialize local variable `a` to the string object `"hi there"`. On line 2 we initialize the local variable `b` to the object referenced by local variable `a`. Now both variables `a` and `b` reference the same object in memory, the string `"hi there"`.
+
+On line 3, we use the concatenation operator (`<<`), a destructive method, to mutate the string object referenced by `a`. This appends `", Bob"` to `"hi there"`, returning the same string object that has been changed, `"hi there, Bob"`.
+
+Because both `a` and `b` reference this object, the change will be visible if we access through `b` as well. That is, outputting both `a` and `b` to the console will result in the same string `"hi there, Bob"` printing.
+
+This is an example of variables as pointers.
+
+### 14
+
+**Current time:** 4:36
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+What are a, b, and c? What if the last line was `c = a.uniq!`?
+
+```ruby
+a = [1, 2, 3, 3]
+b = a
+c = a.uniq
+```
+
+On line 1 we initialize local variable `a` to the array object `[1, 2, 3, 3]`. On line 2 we initialize local variable `b` to the object referenced by `a`. Now both variables are pointing to the same array object `[1, 2, 3, 3]` in memory.
+
+On line 3, we initialize local variable `c` and assign it the value returned by `a.uniq`. This statement called the `uniq` method on the object referenced by `a`. Because `uniq` returns a _new_ array, and not the original object, `c` will reference a different object in memory than `a` and `b`, namely, `[1, 2, 3]`.
+
+Because the object referenced by `a` and `b` has not been changed, they still reference the original array `[1, 2, 3, 3]`.
+
+If the destructive method `uniq!` was called on the object referenced by `a`, all local variables would reference the same object, the array `[1, 2, 3]`. This is because the `uniq!` method mutates the caller, so the same object, albeit modified, is returned by the method.
+
+This is an example of using pointer variables to mutate objects in memory.
+
+### 15
+
+**Current time:** 8:10
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+What is `a`? What if we called `map!` instead of `map`?
+
+```ruby
+def test(b)
+  b.map {|letter| "I like the letter: #{letter}"}
+end
+
+a = ['a', 'b', 'c']
+test(a)
+```
+
+First, we initialize local variable `a` and assign it the array object `['a', 'b', 'c']`. Then, we invoke the test method defined above and pass it the array referenced by `a` as an argument.
+
+Within the method, the array referenced by `a` is assigned to the parameter `b`. Then the `map` method is invoked on the object referenced by `b` (the array `['a', 'b', 'c']`). A block is passed as an argument to the `map` method, with the block parameter `letter`.
+
+Because the `map` method returns a _new_ array object, where each element in the calling array is transformed according to the return value of the block that gets passed to it, we know that the `map` method in this case will return a new array object, `['I like the letter: a', 'I like the letter: b', 'I like the letter: c']`.
+
+This is because each element in the calling array (`['a', 'b', 'c']`) is passed to the block on each iteration, and used in string interpolation to return the strings listed in the array above.
+
+Because the call of `map` is the last bit of code in the `test` method, the array `['I like the letter: a', 'I like the letter: b', 'I like the letter: c']` will be returned by `test`.
+
+We can demonstrate that the array returned by `test` is a new object and that `a` has remained unchanged by passing both to `puts` and seeing what is output on the screen.
+
+```ruby
+puts a        # => ['a', 'b', 'c']
+puts test(a)  # => `['I like the letter: a', 'I like the letter: b', 'I like the letter: c']`
+puts a        # => ['a', 'b', 'c']
+```
+
+This is an example of how objects passed into Ruby method can act as if they are _pass by value_.
