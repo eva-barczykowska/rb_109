@@ -68,11 +68,11 @@ First we initialize local variable `s` and assign it the string object `abc`. Th
 
 Invoking the `fix` method and passing the object referenced by `s` as an argument causes the string object `abc` to be passed into the method and assigned to the method parameter `value`. Now `value` and `s` both point to the same object in memory.
 
-Within the method, we invoke the setter method `[1]=` on the object referenced by `value` and pass it the argument `x`. This causes the character at index 1 in the string `abc` to be reassigned to the character `x`. This is an example of element assignment, which mutates the caller. Therefore, the string object referenced by both `value` and `s` is modified, and now has the value `'axc'`.
+Within the method, we invoke the setter method `[1]=` on the object referenced by `value` and pass it the argument `x`. This causes the character at index 1 in the string `abc` to be reassigned to the character `x`. This is an example of element reassignment, which mutates the caller. Therefore, the string object referenced by both `value` and `s` is modified, and now has the value `'axc'`.
 
 Next, we end the method with the object referenced by `value`, so this object `'axc'` also becomes the return value of the method `fix`. Therefore, this object is assigned to the variable `t`.
 
-If we `puts` both variables `t` and `s` to the screen, we will see the output `'axc'` for each, proving that both local variables reference the same object in memory.
+If we `puts` both variables `t` and `s` to the screen, we will see the output `'axc'` for each, proving that both local variables reference the same object in memory. This shows how Ruby can exemplify the behavior of pass by reference.
 
 ## 7
 
@@ -193,7 +193,7 @@ Because the destructive method call was used on the collection as a _whole_, and
 
 ## 17
 
-First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4]`. Then we initialize local variable `counter` and assign it the integer object `0`. Next, we initialize local variable `sum` and assign it the integer object `0`. Though both `counter` and `sum` reference `0`, these are two separate objects in memory, and can be modified individually of each other.
+First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4]`. Then we initialize local variable `counter` and assign it the integer object `0`. Next, we initialize local variable `sum` and assign it the integer object `0`. Though both `counter` and `sum` reference `0`, these are two separate objects in memory, and can be modified individually.
 
 Next, we invoke the `loop` method and pass it a block as an argument. This creates an inner scope. The local variables initialized in outer scope will be available within the inner scope created by the block.
 
@@ -225,7 +225,7 @@ Within the block, we call the `+` method on the object referenced by `n` and pas
 
 In this case, the block will always return an integer. All integers are considered to be truthy values. Therefore, `select` will return a new collection with all elements from the original `arr` array selected. Namely, the array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
 
-This array will then be assigned to the local variable `new_array`. Therefore, when we pass the object referenced by `new_array` to `puts`, each number from `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be printed on the console on an individual line, and `nil` will be returned.
+This array will then be assigned to the local variable `new_array`. Therefore, when we pass the object referenced by `new_array` to `p`, `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` will be printed on the console.
 
 ## 19
 
