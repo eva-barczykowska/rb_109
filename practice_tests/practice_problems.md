@@ -429,7 +429,7 @@ a = b
 b += 1.1
 ```
 
-First, we initialize the local variable `a` and assign it to the float object `5.2`. Then, we initialize the local variable `b` and assign it to the float object `7.3`. 
+First, we initialize the local variable `a` and assign it to the float object `5.2`. Then, we initialize the local variable `b` and assign it to the float object `7.3`.
 
 Then, we reassign `a` to the object referenced by `b`. Now, both local variables point to the same object in memory, the float `7.3`.
 
@@ -652,6 +652,373 @@ This is an example of how you can destructively modify a shallow copy of a colle
 
 ### 24
 
-**Current time:** 8:41
+**Current time:** 6:46
 
 What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def fix(value)
+  value.upcase!
+  value.concat('!')
+  value
+end
+
+s = 'hello'
+t = fix(s)
+```
+
+First we initialize the local variable `s` and assign it to the string object `'hello'`. Then we initialize the local variable `t` and assign it to the value returned by the `fix` method (defined above) when passed the object referenced by `s` as an argument.
+
+When we invoke the `fix` method and pass it the object referenced by `s`, this object (the string `'hello'`) is assigned to the method parameter `value`. Now both `s` and `value` reference the same object in memory.
+
+Within the method, we invoke the destructive method `upcase!` on the object referenced by `value`. This mutates the caller, returning the same string object but modified to `'HELLO'`. This change will be visible wherever the object is referenced, i.e. both via `s` and `value`.
+
+Next, we invoke the destructive method `concat` and pass it the string `'!'` as an argument. This also mutates the caller, returning the same string object but modified to `'HELLO!'`. This change will be visible wherever the object is referenced, i.e. both via `s` and `value`.
+
+Finally, the last line of code in the method is just the object referenced by `value`, ensuring that the string object `'HELLO!'` (referenced by both `s` and `value`) is the return value of the `fix` method.
+
+We assign this object to the local variable `t`. The consequence of this is that now both `t` and `s` point to the same object in memory, the string object `'HELLO!'`. This can be demonstrated by passing both `s` and `t` to `puts`, which will output `'HELLO!'` in both cases.
+
+This is an example of how ruby can act like a pass by reference language with regards to mutating methods.
+
+### 25
+
+**Current time:** 6:25
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def fix(value)
+  value = value.upcase
+  value.concat('!')
+end
+
+s = 'hello'
+t = fix(s)
+```
+
+First we initialize the local variable `s` and assign it to the string object `'hello'`. Then we initialize local variable `t` and assign it to value returned by the `fix` method (defined above) when we pass it the object referenced by `s` as an argument.
+
+When we invoke the `fix` method, and the object referenced by `s` (the string `'hello'`) as an argument, that object gets assigned to the method parameter `value`. Now both `s` and `value` reference the same object in memory.
+
+Within the method, however, we reassign `value` to the object returned by invoking the method `upcase` on the object referenced by `value`. In this case, we `upcase` does not mutate the caller, and returns a newly created string object, `'HELLO'`. This breaks the link between `value` and the original string object referenced by `s`, `'hello'`.
+
+Next, we invoke the destructive method `concat('!')` on the object referenced by `value`. This does mutate the caller, returning the same string object but modified, `'HELLO!'`. However, because this now a separate object in memory, it will have no effect on the string object `'hello'` referenced by `s`.
+
+Because there is no more code to evaluate within the method, `fix` returns this string object `'HELLO!'` which gets assigned to the local variable `t`.
+
+`t` and `s`, then, both point to different objects in memory. This can be shown by passing each to `puts`. `s` will output `'hello'` and return `nil`, while `t` will output `'HELLO!'` and return `nil`.
+
+This is an example of how re-assignment within a method can cause Ruby to act like a pass by value language.
+
+### 26
+
+**Current time:** 8:06
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def fix(value)
+  value << 'xyz'
+  value = value.upcase
+  value.concat('!')
+end
+
+s = 'hello'
+t = fix(s)
+```
+
+First we initialize local variable `s` and assign it to the string object `'hello'`. Then we initialize local variable `t` and assign it to the value returned by the `fix` method (defined above) when we pass it the object referenced by `s` as an argument.
+
+When we invoke the `fix` method, we assign that object (the string `'hello'`) to the method parameter `value`. At this point, both `s` and `value` reference the same object in memory.
+
+Within the method, we call the destructive `<<` method on the object referenced by `value`. `<<` mutates the calling object and returns that same object, changed to `'helloxyz'`. Because this object is referenced by both `value` and `s`, this change will be visible via either variable.
+
+On the next line, however, we reassign `value` to the object returned by `value.upcase`. The `upcase` method returns a _new_ object and does not mutate the caller. `value`, then, now references the newly created string object `'HELLOXYZ'`. This breaks the link between `value` and the original object referenced by `s`, `'helloxyz'`. Each now references a separate object in memory.
+
+On the next line, we invoke the destructive `concat` method on the object referenced by `value` and pass it the string argument `'!'`. This mutates the caller and returns that same object, changed to `'HELLOXYZ!'`.
+
+Because there is no more code to be evaluated within the method, `fix` returns this object, which is then assigned to the local variable `t`.
+
+Because of the reassignment of `value` within the method, `t` and `s` will not reference the same object in memory. This can be shown by passing each to `puts`. `s` will output `'helloxyz'` and return `nil`, while `t` will output `'HELLOXYZ!'` and return `nil`.
+
+This is an example of Ruby can act like pass by reference with regards to mutating methods, but reassignment breaks that link and causes it to act like pass by value. In reality, Ruby is a pass by reference value language, which is why it can appear to include both behaviors.
+
+### 27
+
+**Current time:** 5:32
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def fix(value)
+ value[1] = 'x'
+ value 
+end
+
+s = 'abc'
+t = fix(s)
+```
+
+First we initialize local variable `s` and assign it the string object `'abc'`. Then we initialize local variable `t` and assign it the value returned by the `fix` method (defined above) when we pass the object referenced by `s` as an argument.
+
+When we invoke the `fix` method and pass `s` as an argument, the object `'abc'` is assigned to the method parameter `value`. Now both `s` and `value` reference the same object in memory.
+
+Within the method, we use the string `[]=` method for element reassignment. This mutates the caller, the object referenced by `value`, and returns the same object with the character at index 1 reassigned from `'b'` to `'x'`; `'axc'`. Because this object is also referenced by `s`, the change will be visible there as well.
+
+We end the method with the object referenced by `value`, which ensures that the object `'axc'` is returned by the `fix` method call and assigned to `t`. Because this object is also referenced by `s`, both `s` and `t` now reference the same object in memory.
+
+This can be demonstrated by passing each variable to `puts`. `s` will output `'axc'` and return `nil`, and `t` will output the same string `'axc'` and return `nil`.
+
+This is an example of how element reassignment, or _setter methods_ should be treated as mutating with regards to collections, demonstrating Ruby's ability to act as a pass by reference language.
+
+### 28
+
+**Current time:** 3:48
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def a_method(string)
+  string << ' world'
+end
+
+a = 'hello'
+a_method(a)
+
+p a
+```
+
+First we initialize local variable `a` and assign it the string object `'hello'`. Then we invoke the `a_method` method (defined above) and pass it the object referenced by `a` as an argument.
+
+When we invoke `a_method`, this object (the string `'hello'`) is assigned to the method parameter `string`. At this point, both `string` and `a` reference the same object in memory.
+
+Within the method, we invoke the destructive method `<<` on the object referenced by `string`. This method mutates the caller, and returns the same string object changed to `'hello world'`. Because `a` still references this object, this change will be visible if we access the string object via `a`.
+
+This can be demonstrated when we pass `a` to `p` in the final line, which outputs the string `'hello world'`. This is an example of how Ruby can act like a pass by reference language with regards to mutating methods.
+
+### 29
+
+**Current time:** 4:13
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+num = 3
+
+num = 2 * num
+```
+
+First we initialize the local variable `num` and assign it the integer `3`. Then we reassign `num` to the value returned by `2 * num`.
+
+Integers are immutable objects. Therefore, any operations upon them (as through the `*` method here) result in a newly created integer object.
+
+In this case, `2 * num` is calling the `*` method on the integer `2` and passing the object referenced by `num` (`3`) as an argument. It will return the new integer object `6` which is assigned to `num`.
+
+This can be demonstrated by showing the different object ids of the integers throughout the program.
+
+```ruby
+num = 3
+puts num.object_id    # => 7
+
+num = 2 * num
+puts num              # => 6
+puts num.object_id    # => 13
+```
+
+### 30
+
+**Current time:** 5:28
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+a = %w(a b c)
+a[1] = '-'
+p a
+```
+
+First we initialize local variable `a` and assign it the array object `["a", "b", "c"]`. Then we invoke the setter method `[]=` for element reassignment.
+
+This reassigns the element at index 1 of the array referenced by `a` from the string object `"b"` to the string object `"-"`. Because `a` is a collection, we consider this to be a destructive action that modifies the collection permanently. Though the element at index 1 is a new object, the array object is not. We can show this by comparing the object id of `a` both before and after element reassignment.
+
+```ruby
+a = %w(a b c)
+a.object_id       # => 260
+a[1] = '-'
+a.object_id       # => 260
+p a               # => ["a", "-", "c"]
+```
+
+Because the array object referenced by `a` remains the same, but it's element at index 1 has been reassigned, `["a", "-", "c"]` will be output when we pass `a` to `p` at the end of the program.
+
+This demonstrates how element reassignment within a collection is a destructive action that permanently modifies the calling collection.
+
+### 31
+
+**Current time:** 8:20
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def add_name(arr, name)
+  arr = arr + [name]
+end
+
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names
+```
+
+First we initialize local variable `names` and assign it the array object `['bob', 'kim']`. Then we invoke the `add_name` method (defined above) and pass it the array referenced by `names` and the string object `'jim'` as arguments.
+
+When we invoke the `add_name` method array referenced by `names` (`['bob', 'kim']`) is assigned to the method parameter `arr` and the string object `'jim'` is assigned to the method parameter `name`.
+
+Within the method, we reassign `arr` to the value returned by `arr + [name]`. Here, we are putting the string object `'jim'` into an array and passing it to the array `+` method as an argument, which is called on the array object referenced by `arr` `['bob', 'kim']`.
+
+Because `+` is not a destructive method, it returns a newly created array object, `['bob', 'kim', 'jim']`, which is assigned to the method parameter `arr`. This breaks the link between `arr` and the original array object `['bob', 'kim']` that was also referenced by `names`.
+
+There is no more code within the method to evaluate, so the method invocation `add_name` returns the new array object `['bob', 'kim', 'jim']`. The original `names` array is not affected by being passed into the method, which is shown when we pass it to `puts`, which outputs `['bob', 'kim']` and returns `nil`.
+
+This is an example of how reassignment within the method can cause Ruby to act like a pass by value language. If we want to preserve the changes made by the `+` method within `add_name`, we will need to save the method's return value by re-assigning `names`.
+
+```ruby
+names = ['bob', 'kim']
+names = add_name(names, 'jim')
+p names       # => ['bob', 'kim', 'jim']
+```
+
+### 32
+
+**Current time:** 6:39
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def add_name(arr, name)
+  arr = arr << name
+end
+
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names
+```
+
+First we initialize the local variable `names` and assign it the array object `['bob', 'kim']`. Then we invoke the `add_name` method (defined above) and pass it the `names` array and the string `'jim'` as arguments.
+
+When we invoke `add_name`, the object referenced by `names` (`['bob', 'kim']`) is passed into the method and assigned to the method parameter `arr`. Now `names` and `arr` point to the same object in memory. The string object `'jim'` is also passed into the method and assigned to the method parameter `name`.
+
+Within the method, we reassign `arr` to the value returned by calling `<<` on the object referenced by `arr` and passing the object referenced by `name` as an argument. Essentially, the value returned by `['bob', 'kim'] << 'jim'`.
+
+Because `<<` is a destructive method that mutates the caller, it will modify the calling object and return that object. Recall that both `arr` and `names` reference this object. Therefore, the same object referenced by `arr` and `names` is reassigned to `arr`. Although, it is changed to `['bob', 'kim', 'jim']` by the concatenation operation done by `<<`.
+
+Normally, we would consider reassignment to break the link between a variable and the object it previously referenced. However, in this case, we are reassigning the same object back to the variable, so the link between the two is maintained.
+
+Because there is no more code within the method to evaluate, the array object, referenced by both `arr` and `names`, is returned by the method.
+
+When we pass `names` to `puts`, we will see the change is visible here as `['bob', 'kim', 'jim']` is output and `nil` is returned.
+
+## Each, Map, and Select
+
+### 33
+
+**Current time:** 6:40
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+array = [1, 2, 3, 4, 5]
+
+array.select do |num|
+   puts num if num.odd?
+end
+```
+
+First we initialize local variable `array` and assign it the array object `[1, 2, 3, 4, 5]`. Then we call the `select` method on the object referenced by `array` and pass it a block as an argument.
+
+When we call `select`, it iterates over the calling array and passes each element into the block. The current iteration's element is assigned to the block parameter `num`.
+
+Within the block, we have a conditional statement, which will execute `puts num` if `num` is odd. We can see that array elements `1`, `3`, and `5` will be output, `odd?` returns `true` when called on these values.
+
+If `num.odd?` returns `true`, and the `puts` invocation is executed, `puts` will return `nil`. If `num.odd?` returns `false`, the `puts` invocation is not executed, and the conditional as a whole returns `nil`. Because there is no other code in the block to be evaluated, `nil` becomes the return value of the block on each iteration.
+
+`select` uses the return value of the block to perform selection. It will return a new array of those elements from the calling collection for which the block returns a truthy value. In this case, the block always returns `nil`, so `select` will return an empty array.
+
+This example demonstrates how a beginning programmer might confuse output with return value. `puts` here will output the desired values to the console, but since the return value is `nil`, the desired selection will not occur. A better statement to use within the block would be simply, `num.odd?`. In this case, `select` would have returned the array `[1, 3, 5]`.
+
+### 34
+
+**Current time:** 3:57
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arr.select { |n| n.odd? }
+```
+
+First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we invoke the `select` method on the object referenced by `arr` and pass it a block as an argument.
+
+When we invoke `select`, it iterates over the array `arr` and passes each element to the block. The current iteration's element is assigned to the block parameter `n`.
+
+Within the block, we call the `odd?` method on the object referenced by `n`. This will return either `true` or `false` depending on whether the integer element is an odd or even number. For example, `1` on the first iteration will return `true`, `2` on the second iteration will return `false`, and so on.
+
+Because there is no more code to be evaluated within the block, this boolean will be the return value of the block. `select` uses the return value of the block to perform selection. It returns a new array consisting of all those elements from the calling array for which the block returns a truthy value. In this case, these will be the integers `1`, `3`, `5`, `7`, and `9`. Therefore, `select` returns the array `[1, 3, 5, 7, 9]`.
+
+### 35
+
+**Current time:** 6:29
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.select do |n| 
+  n + 1
+end
+p new_array
+```
+
+First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we initialize the local variable `new_array` and assign it the value returned by calling the `select` method on `arr`.
+
+When we call the `select` method on the object referenced by `arr`, we pass it a block as an argument. `select` iterates over all the elemtns in the calling array `arr` and passes each into the block. The current iteration's element is assigned to the block parameter `n`.
+
+Within the block, we call the `+` method on the object referenced by `n` and pass it the integer `1` as an argument. This returns a new integer, whatever the value of `n` is on any given iteration incremented by `1`. For example, on the first iteration `n` will be `1` so it will return `2`, on the second, `n` will be `2` so the statement will return `3`, and so on.
+
+Because there is no more code to be evaluated within the block, this will also be the return value of the block. `select` uses the return value of the block that gets passed to it to perform selection. It will return a new array of all the elements from the calling array for which the block returns a truthy value.
+
+In this case, the block is returning an integer on every iteration. Because Ruby considers all object except for `false` and `nil` to be truthy, the block returns a truthy value on every iteration. Therefore, `select` will return an array containing all the elements from the calling collection, namely, `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+This array object will get assigned to the local variable `new_array` as can be demonstrated when we pass `new_array` to the `p` method, which outputs `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+### 36
+
+**Current time:** 6:05
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.select do |n| 
+  n + 1
+  puts n
+end
+p new_array
+```
+
+First we initialize the local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we initialize the local variable `new_array` and assign it the value returned by calling the `select` method on the object referenced by `arr`.
+
+When we call `select` on `arr` we pass it a block as an argument. `select` iterates over each element in the calling array `arr` and passes each to the block. The current iteration's element is assigned to the block parameter `n` on each given iteration.
+
+Within the block, we increment `n` by `1` using the `+` method. However, because integers are immutable objects, this does not modify the object referenced by `n`. The return value of `n + 1` is never saved in a variable for re-use, so ostensibly, it is ignored.
+
+We then pass `n` to the `puts` method. This will output `n` to the console, which will be the current iteration's array element unchanged. For example, on the first iteration `1` will be output, on the second `2`, and so on. `puts` returns `nil` on each occasion.
+
+Because there is no more code within the block to be evaluates, `nil` becomes the return value of the block. `puts` is always the last method call in the block, so the block will always return `nil`.
+
+`select` uses the return value of the block to perform selection. It will return a new array containing all those elements from `arr` for which the block returns a truthy value. Ruby considers `nil` to be a falsey value, so select in this case will return an empty array.
+
+Therefore, the value assigned to local variable `new_array` is an empty array object `[]`. This is demonstrated when we pass the object referenced by `new_array` to the `p` method and `[]` is output to the console.
