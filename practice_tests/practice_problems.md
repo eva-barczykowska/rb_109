@@ -413,3 +413,245 @@ puts a        # => ['a', 'b', 'c']
 ```
 
 This is an example of how objects passed into Ruby method can act as if they are _pass by value_.
+
+### 16
+
+**Current time:** 3:45
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+a = 5.2
+b = 7.3
+
+a = b
+
+b += 1.1
+```
+
+First, we initialize the local variable `a` and assign it to the float object `5.2`. Then, we initialize the local variable `b` and assign it to the float object `7.3`. 
+
+Then, we reassign `a` to the object referenced by `b`. Now, both local variables point to the same object in memory, the float `7.3`.
+
+Finally, we reassign `b` using the `+=` shorthand provided by Ruby's syntactical sugar. This is equivalent to reassigning `b` to the value returned by `b + 1.1`. This statement will return a _new_ float object `8.4`. The link between `b` and the object it previously referenced, `7.3`, is broken.
+
+Now both `a` and `b` reference different objects in memory. `a` references the float `7.3` and `b` references `8.4`. This can be demonstrated by passing each to `puts` and seeing what value is output on the screen.
+
+### 17
+
+**Current time:** 7:38
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def test(str)
+  str  += '!'
+  str.downcase!
+end
+
+test_str = 'Written Assessment'
+test(test_str)
+
+puts test_str
+```
+
+First we initialize the variable `test_str` and assign it to the string object `'Written Assessment'`. Then we invoke the `test` method (defined above) and pass it the object referenced by `test_str` as an argument.
+
+Within the method, this object (the string `'Written Assessment'`) gets assigned to the parameter `str`. Now both `test_str` and `str` point to the same object in memory. This is because Ruby is a pass by reference language.
+
+However, when we use the shorthand `+=` provided by Ruby's syntactical sugar to reassign `str`, we break the link between `str` and the original string object `'Written Assessment'` (still referenced by `test_str`). This is because we are, in fact, assigning `str` to the return value of `str + '!'` and the `+` method returns a _new_ string object, `'Written Assessment!'`.
+
+On the next line, we call the destructive `downcase!` method on the object referenced by `str`. Because this method mutates the caller, it will return the same object, modified, `'written assessment!'`. Because there is no more code to evaluate in the method, this will also be the return value of `test(test_str)`.
+
+When we pass `test_str` to `puts` it will output `'Written Assessment'` to the screen and return `nil`. This is because the link between `test_str` and the method parameter `str` was broken by reassignment within the `test` method. This is an example of how Ruby can act as if it were a pass by value language.
+
+### 18
+
+**Current time:** 6:24
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def plus(x, y)
+  x = x + y
+end
+
+a = 3
+b = plus(a, 2)
+
+puts a
+puts b
+```
+
+First, we initialize local variable `a` and assign it to the integer `3`. Next, we initialize local variable `b` and assign it to the value returned by the `plus` method (defined above) when passed the object referenced by `a` and the integer `2` as arguments.
+
+When we invoke the `plus` method and pass it `a` and `2` as arguments, the object referenced by `a` gets assigned to the method parameter `x` and the integer `2` gets assigned to the method parameter `y`. Now both `x` and `a` reference the same object in memory.
+
+Within the method, however, we reassign `x` to the value returned by `x + y`. Because integers are immutable objects, the `+` method returns a _newly created object_, breaking the link between `x` and the integer `3` referenced by `a`. `x` will now reference the integer `5`.
+
+Because there is no more code to be evaluated within the method, the integer `5` will also be the return value of the `plus` method call, and is assigned to the local variable `b`.
+
+Therefore, when we pass `a` to `puts`, `3` will be output and `nil` returned. When we pass `b` to `puts`, `5` will be output and `nil` returned.
+
+This is an example of how reassignment of parameters within a method can break the link between a variable and the object it references, causing Ruby to behave as if it is a pass by value language.
+
+### 19
+
+**Current time:** 5:13
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def increment(x)
+  x << 'b'
+end
+
+y = 'a'
+increment(y) 
+
+puts y
+```
+
+First we initialize the local variable `y` and assign it the string object `'a'`. Then we call the `increment` method (defined above) and pass it the object referenced by `y` as an argument.
+
+Within the method, this object, the string `'a'`, gets assigned to the method parameter `x`. Now both `y` and `x` reference the same object in memory.
+
+We then call the `<<` method on the object referenced by `x` and pass it the string `'b'` as an argument. `<<` is a method that mutates the caller, and returns the calling object after modification. The string object `'a'`, therefore, is mutated to `'ab'` and this change will be visible everywhere that object is referenced (i.e. both through `x` and `y`).
+
+Because there is no more code to be evaluated within the method, `'ab'` is also the return value of the `increment` method call.
+
+When we pass the object referenced by `y` to `puts`, it is still the same modified string. Therefore, `puts` will output `'ab'` and return `nil`.
+
+This is an example of how Ruby behaves as a pass by reference language with respect to mutating methods.
+
+### 20
+
+**Current time:** 5:12
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def change_name(name)
+  name = 'bob'      # does this reassignment change the object outside the method?
+end
+
+name = 'jim'
+change_name(name)
+puts name 
+```
+
+First, we initialize the local variable `name` and assign it to the string object `'jim'`. Then, we invoke the `change_name` method (defined above) and pass it the object referenced by `name` as an argument.
+
+Within the method, this object, the string `'jim'` is assigned to the method parameter `name`. At this point, both `name` outside the method and `name` within the method reference the same string object, `'jim'`.
+
+However, within the method we reassign the method parameter `name` to the string object `'bob'`. This breaks the link between the parameter `name` and the object it previously referenced (`'jim'`). Because there is no more code within the method to evaluate, the string object `'bob'` is returned by the `change_name` method invocation.
+
+When we pass `name` to `puts` outside the method, `name` will still reference the string object `'jim'`, which will be output to the screen. `puts` returns `nil`.
+
+In order to change the value of `name` outside the method, given the nature of how the `change_name` method is defined, we will have to save it's return value in `name` via reassignment:
+
+```ruby
+name = 'jim'
+name = change_name(name)
+puts name     # => 'bob'
+```
+
+This is an example of how reassignment within the method can cause Ruby to behave as a pass by value language.
+
+### 21
+
+**Current time:** 3:58
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def cap(str)
+  str.capitalize!   # does this affect the object outside the method?
+end
+
+name = "jim"
+cap(name)
+puts name
+```
+
+First we initialize local variable `name` and assign it to the string object `'jim'`. Then we invoke the `cap` method (defined above) and pass it the object referenced by `name` as an argument.
+
+Within the method, this object (the string `'jim'`) gets assigned to the method parameter `str`. At this point, both `str` and `name` reference the same object in memory.
+
+Within the method we call the destructive `capitalize!` method on the object referenced by `str`. `capitalize!` mutates the caller, and returns the same object that is referenced by both `str` and `name` after it's been modified. `str` and `name`, therefore, now both reference the string `'Jim'`.
+
+Because there is no more code to be evaluated within the method, the `cap` method invocation will return the string `'Jim'`.
+
+When we pass `name` to `puts`, it will still reference the mutated object, `'Jim'` which is output to the console. `puts` returns `nil`.
+
+This is an example of how Ruby can behave as a pass by reference language with respect to mutating methods.
+
+### 22
+
+**Current time:** 6:57
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+What is `arr` here?
+
+```ruby
+a = [1, 3]
+b = [2]
+arr = [a, b]
+arr
+
+a[1] = 5
+arr
+```
+
+First we initialize local variable `a` and assign it to the array object `[1, 3]`. Then we initialize local variable `b` and assign it to the array object `[2]`. Next we initialize local variable `arr` and assign it to the array `[a, b]`. This means that the first element in the array `arr` will be the array referenced by `a` and the second element in the array `arr` will be the array referenced by `b`, creating nested array `[[1, 3], [2]]`.
+
+The nested array `[[1, 3], [2]]` is returned by `arr`. In this case, using element reference with nested array `arr` will reference the same objects in memory as local variables `a` and `b`.
+
+```ruby
+arr[0].object_id == a.object_id   # => true
+arr[1].object_id == b.object_id   # => true
+```
+
+Therefore, when we use the array method `[]=` for element reassignment (which modifies the caller) on the array object referenced by `a`, it will modify the same object referenced by `arr[0]`.
+
+This is shown when we reference `arr` after the element reassignment, which will return the modified nested array `[[1, 5], [2]]`.
+
+### 23
+
+**Current time:** 8:41
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr1 = ["a", "b", "c"]
+arr2 = arr1.dup
+arr2.map! do |char|
+  char.upcase
+end
+
+puts arr1 
+puts arr2
+```
+
+First we initialize local variable `arr1` and assign it the array object `["a", "b", "c"]`. Then we initialize local variable `arr2` and assign it to the value returned by calling the `dup` method on the object referenced by `arr1`. This returns the new array `["a", "b", "c"]`, a shallow copy of `arr1`.
+
+Then, we call the destructive `map!` method on the object referenced by `arr2`, and pass it a block as an argument. `map!` iterates over the calling array and passes each element into the block, where it is assigned to the block parameter `char`.
+
+Within the block, we call the non-destructive `upcase` method on the object referenced by `char`. `upcase` returns a _new_ string object, `"A"`, `"B'`, `"C"` on each iteration respectively. Because there is no more code to be evaluated within the block, this is also the return value of the block.
+
+`map!` uses the return value of the block to destructively modify each element within the array that calls it. Therefore it will return the same array object referenced by `arr2` with the newly created string elements within, `["A", "B", "C"]`.
+
+Because we did not use a destructive method on the level of elements within the collection, and rather returned a _new_ object for transformation, the original elements within `arr1` are left unchanged.
+
+Therefore, when we pass the object referenced by `arr1` to `puts` the strings `"a"`, `"b"`, and `"c"` will be output on individual lines and `nil` returned.When we pass the object referenced by `arr2` to `puts`, the strings `"A"`, `"B"`, and `"C"` will be output on individual lines and `nil` returned.
+
+This is an example of how you can destructively modify a shallow copy of a collection object without affecting the original object, as long as any modifications are called on the _collection as a whole_ rather than on individual elements within the collection.
+
+## Object Mutability / Mutating Methods
+
+### 24
+
+**Current time:** 8:41
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
