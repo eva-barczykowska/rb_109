@@ -29,4 +29,4 @@ Review material and notes to prepare for the RB109 Assessment.
 - [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [ ] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
 - [x] Create some "practice tests" that I can use for timed practice
-- [ ] Take timed practice test
+- [x] Take timed practice test

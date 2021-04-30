@@ -1022,3 +1022,234 @@ Because there is no more code within the block to be evaluates, `nil` becomes th
 `select` uses the return value of the block to perform selection. It will return a new array containing all those elements from `arr` for which the block returns a truthy value. Ruby considers `nil` to be a falsey value, so select in this case will return an empty array.
 
 Therefore, the value assigned to local variable `new_array` is an empty array object `[]`. This is demonstrated when we pass the object referenced by `new_array` to the `p` method and `[]` is output to the console.
+
+### 37
+
+**Current time:** 7:14
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+words = %w(jump trip laugh run talk)
+
+new_array = words.map do |word|
+  word.start_with?("t")
+end
+
+p new_array
+```
+
+First we initialize local variable `words` and assign it the array object `['jump', 'trip', 'laugh', 'run', 'talk']`. Then we initialize local variable `new_array` and assign it the value returned by invoking the `map` method on the array referenced by `words`.
+
+When we invoke the `map` method on `words`, we pass it a block as an argument. `map` will iterate over all the elements in the array referenced by `words`, passing each into the block. The current iteration's element will be assigned to the block parameter `word`.
+
+Within the block, we invoke the `start_with?` method on the string referenced by `word` and pass it the argument `'t'`. `start_with?` checks to see if the calling string has the character `'t'` at index 0. If it does, `start_with?` will return the Boolean `true`, otherwise, it will return `false`. For example, on the first iteration, `word` references the string `'jump'`, so `start_with?` will return `false`. On the second iteration, `word` will reference the string `'trip'` and the method will return `true`.
+
+Because there is no more code to be evaluated within the block, this will also be the return value of the block. `map` uses the return value of the block that gets passed to it to perform transformation, returning a new array containing the return value of the block for each element in the calling array. In this case, `map` will return the array `[false, true, false, false, true]`.
+
+### 38
+
+**Current time:** 3:35
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arr.each { |n| puts n }
+```
+
+First we initialize the local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we invoke the `each` method on the object referenced by `arr` and pass it a block as an argument.
+
+`each` iterates over all the elements in the calling array `arr` and passes each into the block. The current iteration's element is assigned to the block parameter `n`.
+
+Within the block, we pass the object referenced by `n` to the `puts` method. This will output each individual element on it's own line, and return `nil`.
+`each` ignores the return value of the block, and always returns the original calling collection.
+
+In this case, `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10` will be output by `puts` on each iteration of the block, and `each` will return the array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+### 39
+
+**Current time:** 4:20
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+incremented = arr.map do |n| 
+            n + 1
+            end
+p incremented
+```
+
+First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we initialize local variable `incremented` and assign it the value returned by invoking `map` on the array `arr`.
+
+When we invoke `map` on the object referenced by `arr`, we pass it a block as an argument. `map` iterates over each element in the calling array and passes it to the block, where it is assigned to the block parameter `n`.
+
+Within the block, we invoke the `+` method on the object referenced by `n`, and pass it the argument `1`. This increments the value of `n` by `1`, returning `2` on the first iteration, `3` on the second, `4` on the third, and so on.
+
+Because there is no more code to be evaluated within the block, this integer becomes the return value of the block as well. `map` uses the return value of the block to perform transformation. It returns a new array in which each element is the return value of the block for each element in the calling array. In this case, it will return the array `[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]`.
+
+This array, then, gets assigned to the local variable `incremented`. When we pass `incremented` to `p`, it will output `[2, 3, 4, 5, 6, 7, 8, 9, 10, 11]`.
+
+### 40
+
+**Current time:** 5:30
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.map do |n| 
+  n > 1
+end
+p new_array
+```
+
+First we initialize the local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we initialize local variable `new_array` and assign it the value returned by invoking `map` on the array `arr`.
+
+When we invoke `map`, we pass it a block as an argument. `map` iterates over the elements in the calling array `arr` and passes each to the block, where it is assigned to the block parameter `n`.
+
+Within the block, we check to see if the object referenced by `n` is greater than `1`. This returns a Boolean, either `true` or `false`. For example, on the first iteration, `n` references the integer `1`, so the statement will return `false`. On the second iteration, `n` references `2`, so the statement will return `true`.
+
+Because there is no more code to be evaluated within the block, this Boolean value becomes the return value for the block. `map` uses the return value of the block to perform transformation, returning a new array in which each element is the return value of the block for each element in the calling collection. In this case, `map` will return the array, `[false, true, true, true, true, true, true, true, true, true]`.
+
+This array gets assigned to the local variable `new_array`. Therefore, when we pass `new_array` to `p` as an argument, the array `[false, true, true, true, true, true, true, true, true, true]` is output to the console.
+
+This is an example of how `map` always uses the return value of the block for transformation. The code within the block, in this case, may be better suited for the `select` method, depending on the programmers intentions.
+
+### 41
+
+**Current time:** 5:44
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+new_array = arr.map do |n| 
+  n > 1
+  puts n
+end
+p new_array
+```
+
+First we initialize local variable `arr` and assign it the array object `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Then we initialize local variable `new_array` and assign it the value returned by invoking `map` on the array `arr`.
+
+When we invoke the `map` method, we pass it a block as an argument. `map` iterates over the elements in the calling array `arr` and passes each into the block. The current iteration's element is assigned to the block parameter `n`.
+
+Within the block, we first check to see if the object referenced by `n` is greater than `1`. This will return a Boolean, `true` if `n` is greater than `1` or `false` otherwise. Because this return value is not saved into a variable for re-use, it is ostensibly ignored.
+
+Next, we pass `n` to `puts` as an argument. This will output the value of `n` to the console, and return `nil`. For example, on the first iteration `1` will be output, `2` on the second iteration, `3` on the third, and so on. `puts` always returns `nil`.
+
+Because there is no more code to be evaluated within the block, `nil` becomes the return value of the block on every iteration. `map` uses the return value of the block to perform transformation, returning a new array in which each element is the return value of the block for each element in the calling collection `arr`. In this case, `map` will return the array, `[nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]`.
+
+This array is then assigned to the local variable `new_array`. When we pass `new_array` to `p`, then, the array `[nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]` is output.
+
+### 42
+
+**Current time:** 3:31
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+a = "hello"
+
+[1, 2, 3].map { |num| a }
+```
+
+First we initialize local variable `a` and assign it to the string object `'hello'`. Then we invoke the `map` method on the array literal `[1, 2, 3]` and pass it a block as an argument.
+
+`map` iterates over each element in the calling array `[1, 2, 3]`, passing each to the block and assigning it to the block parameter `num`.
+
+Within the block, `num` is not used. We simply access the value referenced by `a`, which returns the string `'hello'`. `a` is accessible within the inner scope created by the block because it is a local variable initialized in outer scope.
+
+Because there is no further code to be evaluated within the block, the return value of the block becomes `'hello'` on each iteration. `map` uses the return value of the block to perform transformation, returning a new array where each element is the value returned by the block for each element in the calling array. In this case, `map` will return the array `['hello', 'hello', 'hello']`.
+
+### 43
+
+**Current time:** 3:21
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+[1, 2, 3].each do |num|
+  puts num
+end
+```
+
+Here we are invoking the `each` method on the array literal `[1, 2, 3]` and passing it a block as an argument. `each` iterates over the elements in the calling array and passes each into the block, where it is assigned to the block parameter `num`.
+
+Within the block, we invoke the `puts` method and pass it the object referenced by `num` as an argument. On the first iteration, `puts` will output `1`, on the second `2`, and on the third `3`. In all three instances, `puts` returns `nil`.
+
+Because there is no more code to be evaluated within the block, the block will also return `nil` on all three iterations. `each`, however, ignores the return value of the block and always returns the calling collection. In this case, the return value of `each` will be the array `[1, 2, 3]`.
+
+## Other Collection Methods
+
+### 44
+
+**Current time:** 4:27
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+[1, 2, 3].any? do |num|
+  num > 2
+end
+```
+
+Here we are calling the `any?` method from the Enumerable module on the array literal `[1, 2, 3]` and passing it a block as an argument.
+
+`any?` iterates over all the elements in the calling collection and passes each to the block, where it is assigned to the block parameter `num`.
+
+Within the block, we check to see if `num` is greater than `2`. This will return a Boolean `true` if the object referenced by `num` is greater than `2`, `false` otherwise. For example, on the first iteration, `num` references the integer `1` and so the expression returns `false`. On the third iteration, `num` references `3` so the expression will return `true`.
+
+Because there is no more code to be evaluated within the block, this Boolean also becomes the return value of the block due to Ruby's implied return. `any?` uses the return value of the block, returning `true` if the block never returns a falsey value (`false` or `nil`) for all iterations, or `false` otherwise.
+
+In this case, the block returns `true` on the third and final iteration, so `any?` returns `true`.
+
+### 45
+
+**Current time:** 5:35
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+{ a: "ant", b: "bear", c: "cat" }.any? do |key, value|
+  value.size > 4
+end
+```
+
+Here we are calling the `any?` method from the Enumerable module on the hash literal `{ a: "ant", b: "bear", c: "cat" }` and passing in a `do..end` block as an argument.
+
+`any?` iterates over the key-value pairs in the calling hash, and passes each into the block. Because we are dealing with a hash, we have two block parameters. The key in the current iteration's key-value pair is assigned to the block parameter `key` and the value is assigned to the block parameter `value`.
+
+Within the hash, we invoke the `size` method on the string object referenced by `value` and check to see if the return value is greater than `4`. This will return `true` if the string object referenced by `value` has more than four characters, or `false` otherwise.
+
+In this case, none of the values in the calling hash have more than four characters, so the expression will return `false` on each iteration of the block.
+
+Because there is no more code to be evaluated within the block, `false` also becomes the return value of the block. `any?` uses the return value of the block and evaluates it for truthiness. If the block ever returns a value that evaluates to true, `any?` will return true. In this case, the block always returns `false` and so the return value of the `any?` invocation will be `false`.
+
+### 46
+
+**Current time:** 3:48
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+[1, 2, 3].all? do |num|
+  num > 2
+end
+```
+
+Here we are invoking the `all?` method from the Enumerable module on the array literal `[1, 2, 3]` and passing it a `do..end` block as an argument.
+
+`all?` will iterate over the elements in the calling array and pass each into the block, where it is assigned to the block parameter `num`.
+
+Within the block, we check to see if `num` is greater than `2`. This will return a Boolean, `true` if the integer referenced by `num` is greater than `2`, `false` otherwise. In this case, the first and second iterations will return `false` and the third iteration will return `true`.
+
+Because there is no more code to be evaluated within the block, this Boolean becomes the return value of the block due to Ruby's implied return. `all?` uses the return value of the block, evaluating it for truthiness. `all?` will return `true` if the block never returns `false` or `nil`, `false` otherwise.
+
+In this case, the block returns `false` on both the first and second iterations, so the `all?` invocation will return `false`.
