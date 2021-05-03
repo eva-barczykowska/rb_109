@@ -1,8 +1,13 @@
 # Variables as Pointers
 
-1. [Assignment](#assignment)
-2. [Reassignment](#reassignment)
-3. [Immutable Objects](#immutable-objects)
+- [Assignment](#assignment)
+- [Reassignment](#reassignment)
+- [Immutable Objects](#immutable-objects)
+- [Mutable Objects](#mutable-objects)
+  - [Setter Methods](#setter-methods)
+  - [Mutating Methods](#mutating-methods)
+- [Pointer Arguments](#pointer-arguments)
+- [Equal Values](#equal-values)
 
 ## Assignment
 

@@ -1,5 +1,10 @@
 # Truthiness
 
+- [Booleans](#booleans)
+- [Truthiness and Falsiness](#truthiness-and-falsiness)
+- [nil](#nil)
+- [Truthiness in the Wild](#truthiness-in-the-wild)
+
 ## Booleans
 
 Boolean data types are those that are represented by the objects `true` or `false`. These objects are separate from strings, and actually represent classes of their own.

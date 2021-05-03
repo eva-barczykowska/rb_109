@@ -1,6 +1,13 @@
 # Return Values
 
-## What's a return value?
+- [What is a Return Value?](#what-is-a-return-value)
+- [Ruby's Implied Return](#implied-return)
+- [Chaining Methods](#chaining-methods)
+- [Methods as Arguments](#methods-as-arguments)
+- [Output vs. Return](#output-vs-return)
+- [Return Values with Blocks](#return-values-with-blocks)
+
+## What is a return value?
 
 A **return value** is the object that is _returned_ by a method or block in Ruby. You can cause a method to return any particular object by using the `return` keyword.
 
@@ -70,7 +77,7 @@ a.concat('!').upcase
 
 ## Methods as arguments
 
-Based along the same principles, you can also use methods as arguments. The object that will get passed as an argument will be the return value of the method used.
+Based along the same principles, you can also use methods as arguments. The object that will get passed as an argument will be the return value of the method used. Or, to be super specific, a copy of the reference to the object returned by the method.
 
 ```ruby
 def add_two(x, y)
@@ -93,9 +100,9 @@ Finally, the object returned by `add_two` (the sum) is passed to the `p` method 
 
 ## Output vs Return
 
-A return value is not the same thing as output. Output indicates that something is "output" to `STOUT`. Usually, this means that it will print on the console or terminal. In Ruby, this is acheived by passing object to methods such as `puts`, `p`, or `print`.
+A return value is not the same thing as output. Output indicates that something is "output" to `STDOUT`. Usually, this means that it will print on the console or terminal. In Ruby, this is acheived by passing object to methods such as `puts`, `p`, or `print`.
 
-Be careful, however, as these methods do not always return what they are outputting. `puts`, for example, returns `nil`. So if you end a method with `puts` so you can see the return value of a particular statement, you actually change the return value of the method (or block) as whole to `nil`.
+Be careful, however, as these methods do not always return what they are outputting. `puts`, for example, returns `nil`. So if you end a method with `puts` you can see the return value of a particular statement, but you actually change the return value of the method (or block) as whole to `nil`.
 
 ```ruby
 def a_method
