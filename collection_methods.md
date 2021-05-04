@@ -368,7 +368,7 @@ words.max_by(2) { |word| word.count("aeiou") }
 
 ### minmax
 
-`Enumerable#minmax` returns a 2 element array which contains both the minimum and maximum values in the calling collection. By default, the method will evaluate all elements with `<=>`. Alternatively, you can pass it a block to determine how elements should be compares. The block takes two arguments (the items to compare) and should return a value of `-1`, `1`, or `0`.
+`Enumerable#minmax` returns a 2 element array which contains both the minimum and maximum values in the calling collection. By default, the method will evaluate all elements with `<=>`. Alternatively, you can pass it a block to determine how elements should be compared. The block takes two arguments (the items to compare) and should return a value of `-1`, `1`, or `0`.
 
 ```ruby
 words = %w(cantaloupe apple durian bananas)
