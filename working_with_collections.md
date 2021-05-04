@@ -64,7 +64,7 @@ arr[0]          # => 'a'
 arr[1]          # => 'b'
 arr [-1]        # => 'g'
 arr[2, 3]       # => ['c', 'd', 'e']; starts at index 2, returns 3 elements
-arr[2, 3][2]    # => 'c'; returns element at index 2 in subarray returned by arr[2, 3]
+arr[2, 3][2]    # => 'e'; returns element at index 2 in subarray returned by arr[2, 3]
 ```
 
 Note that the bracket notation above is equivalent to the `slice` method.
@@ -480,7 +480,7 @@ words
 # => {:nouns=>["shoe", "ear", "tea", "book", "gum"], :verbs=>["run", "swim", "jump", "dance"]}
 ```
 
-It's possible to ass another array as an element of a sub-array, creating a **three layer** nested data structure.
+It's possible to add another array as an element of a sub-array, creating a **three layer** nested data structure.
 
 ```ruby
 array = ["layer one", ["layer two"]]
@@ -535,7 +535,7 @@ arr_a = %w(ant bat cat)
 arr_b = arr_a.dup
 
 arr_a.object_id == arr_b.object_id    # => false
-arr_a[0].object_id == arr_b.object_id # => true
+arr_a[0].object_id == arr_b[0].object_id # => true
 ```
 
 Calling a destructive method on an individual element within a collection that is a shallow copy will result in a change to both collections referenced by each variable `arr_a` and `arr_b`. This is because every element in `arr_b` is a reference to the object references by the corresponding element in `arr_a`.
@@ -620,7 +620,7 @@ arr_b = arr_a.clone
 arr_b << 'dog'            # => FrozenError
 
 arr_c = %w(dog egg fig).freeze
-arr_d = arr_d.dup
+arr_d = arr_c.dup
 arr_d << 'green'
 arr_d                     # => ['dog', 'egg', 'fig', 'green']
 arr_c                     # => ['dog', 'egg', 'fig']
