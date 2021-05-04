@@ -1253,3 +1253,184 @@ Within the block, we check to see if `num` is greater than `2`. This will return
 Because there is no more code to be evaluated within the block, this Boolean becomes the return value of the block due to Ruby's implied return. `all?` uses the return value of the block, evaluating it for truthiness. `all?` will return `true` if the block never returns `false` or `nil`, `false` otherwise.
 
 In this case, the block returns `false` on both the first and second iterations, so the `all?` invocation will return `false`.
+
+### 47
+
+**Current time:** 6:22
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+{ a: "ant", b: "bear", c: "cat" }.all? do |key, value|
+  value.length >= 3
+end
+```
+
+Here, we are invoking the `all?` method on the hash literal `{ a: "ant", b: "bear", c: "cat" }`, and passing it a block as an argument. Because the calling object is a hash, in this case we have two block parameters, `key` and `value`.
+
+`all?` will iterate over the key-value pairs in the calling hash, and on each iteration will assign the current key object to the block parameter `key` as well as assign the current value object to the block parameter `value`.
+
+Within the block, we invoke the `length` method on the string object referenced by `value`. This returns an integer representing the number of characters in the string object referenced by `value`. For example, on the first iteration, `value` references `"ant"` so `length` will return `3`. On the second iteration, `value` references `"bear"` so `length` will return `4`.
+
+We then check to see if this integer is greater than or equal to `3`. This will return a Boolean either `true` or `false`. Because all the string values in the calling hash have at least three characters, in this case, the expression will return `true` on every iteration of the block.
+
+Because there is no more code within the block to be evaluated, this becomes the return value of the block as well. `all?` uses the return value of the block, inspecting it for truthiness. `all?` will return `true` if the block never returns a `false` or `nil` value, `false` otherwise.
+
+In this case, the block will always return `true`, so `all?` returns the Boolean `true`.
+
+### 48
+
+**Current time:** 5:46
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+[1, 2, 3].each_with_index do |num, index|
+  puts "The index of #{num} is #{index}."
+end
+```
+
+Here we are invoking the `each_with_index` method on the array literal `[1, 2, 3]` and passing it a block as an argument. `each_with_index` utilizes two block parameters, the first representing the current iterations' element from the calling collection, and the second representing the index number for that element.
+
+In this case, `each_with_index` iterates over the array `[1, 2, 3]` and passes each element to the block where it is assigned to the block parameter `num`. The current index number is assigned to the block parameter `index`.
+
+Within the block, we invoke the `puts` method and pass it the string `"The index of #{num} is #{index}."`. This uses string interpolation to output the integer objects referenced by `num` and `index` to the console as strings. This will output:
+
+```ruby
+"The index of 1 is 0."
+"The index of 2 is 1."
+"The index of 3 is 2"
+```
+
+`puts` always returns `nil`. Because there is no more code within the block to be evaluated, `nil` also becomes the return value of the block. `each_with_object`, however, ignores the return value of the block and always returns the calling collection. In this case, `each_with_object` will return `[1, 2, 3]`.
+
+### 49
+
+**Current time:** 11:23
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+{ a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
+  array << pair.last
+end
+```
+
+Here, we are invoking `each_with_object` on the hash literal `{ a: "ant", b: "bear", c: "cat" }` and passing it an empty array object `[]` and a block as arguments.
+
+`each_with_object` iterates over all the elements in the calling collection and passes them into the block. Here, the elements are key-value pairs which are converted to 2-element arrays and assigned to the block parameter `pair`. For example, on the first iteration, `pair` will reference the array object `[:a, "ant"]`, the second, `[:b, "bear"]`, etc.
+
+`each_with_object` also passes the object that is passed to it as an argument into the block on each iteration. In this case, we have an empty array `[]`, which is assigned to the block parameter `array`.
+
+Within the block, we call the `<<` method on the array referenced by `array`, and pass it the value returned by `pair.last` as an argument.
+
+First, we must evaluated `pair.last`. This invokes the `last` method on the array referenced by `pair`, returning the last element in the calling array. On the first iteration it will return the string `"ant"`, on the second it will return the string `"bear"`, and on the third it will return the string `"cat"`.
+
+This string, then, is passed to the `<<` method call as an argument. The `<<` method destructively modifies the calling array, by adding the string object passed to it to the array. `array`, then, will reference the array object `["ant"]` after the first iteration, `["ant", "bear"]` after the second iteration, and `["ant", "bear", "cat"]` after the third iteration. Because the reference to the collection object as a whole never changes, the collection object itself is mutated by each `<<` method call.
+
+`<<` returns the calling object, modified. Because there is no more code to be evaluated within the block, this becomes the return value of the block as well. However, `each_with_object` ignores the return value of the block and always returns the original object that was passed to it as an argument. Because we have destructively modified this object via a mutating method, the return value of `each_with_object` is the array `["ant", "bear", "cat"]`.
+
+### 50
+
+**Current time:** 8:37
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+{ a: "ant", b: "bear", c: "cat" }.each_with_object({}) do |(key, value), hash|
+  hash[value] = key
+end
+```
+
+Here, we are invoking the `each_with_object` method on the hash literal `{ a: "ant", b: "bear", c: "cat" }`, and passing it an empty hash `{}` and a block as arguments.
+
+`each_with_object` will iterate over each key-value pair in the calling hash and pass it into the block, where the key object will be assigned to the block parameter `key` and the value object will be assigned to the block parameter `value`. The empty hash object is also passed into the block on each iteration, where it is assigned to the block parameter `hash`.
+
+Within the block, we use the hash `[]=` method to create a new key-value pair in the hash referenced by `hash`. This is an instance of element assignment, which mutates the caller.
+
+The key-value pairs that we are creating use the object referenced by `value` for the key, and the object referenced by `key` for the value. After the first iteration, therefore, `hash` will reference `{"ant" => :a}`. After the second iteration, `hash` will reference `{"ant" => :a, "bear" => :b}`. After the third iteration `hash` will reference `{"ant" => :a, "bear" => :b, "cat" => :c}`.
+
+`[]=` always returns the object that it assigns as value, or in this case, the symbols `:a`, `:b`, `:c`. Because there is no more code to be evaluated within the block, this also becomes the return value of the block. `each_with_object`, however, does not use the return value of the block, and always returns the object that was passed to it.
+
+In this case, it returns the object ``{"ant" => :a, "bear" => :b, "cat" => :c}`. We were able to modify the empty hash object passed as argument permanently by using element assignment on it within the block, which mutates the calling collection.
+
+### 51
+
+**Current time:** 8:00?
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+odd, even = [1, 2, 3].partition do |num|
+  num.odd?
+end
+
+p odd 
+p even
+```
+
+First, we initialize the local variables `odd` and `even` and assign them to the value returned by invoking `partition` on the array literal `[1, 2, 3]`. We are able to use dual assignment here because `partition` returns a two dimensional array with two sub-arrays within. This is available through Ruby's syntactical sugar. The first sub-array in the return value will be assigned to `odd` and the second sub-array in the return value will be assigned to `even`.
+
+When we invoke the `partition` method on the array `[1, 2, 3]` we pass it a block as an argument. `partition` will iterate over all the elements in the calling array, and pass each to the block, where it is assigned to the block parameter `num`.
+
+Within the block, we invoke the `odd?` method on the integer referenced by `num`. This returns a Boolean, `true` if the integer is odd, false otherwise. In this case, it will return `true` on the first iteration, `false` on the second, and `true` on the third.
+
+Because there is no more code within the block to be evaluated, these will also be the return values of the block on each iteration. `partition` uses the return value of the block, evaluating it for truthiness. `partition` returns a nested array that consists of two sub-arrays. The first sub-array is populated with those elements from the calling collection for which the block returns a truthy value. The second sub-array is populated with those elements from the calling collection for which the block returns `false` or `nil`.
+
+In this case, `partition` will return the array `[[1, 3], [2]]`. Because we are using the dual assignment syntax available through Ruby's syntactical sugar, the array `[1, 3]` is assigned to the local variable `odd` and the array `[2]` is assigned to the local variable `even`.
+
+When we pass `odd` to the `p` method, then, the array `[1, 3]` is output. When we pass `even` to the `p` method, the array `[2]` is output.
+
+## Truthiness
+
+### 53
+
+**Current time:** 4:00
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+a = "Hello"
+
+if a
+  puts "Hello is truthy"
+else
+  puts "Hello is falsey"
+end
+```
+
+First we invoke local variable `a` and assign it to the string object `"Hello"`. Then we have a conditional `if...else` statement, where the value referenced by `a` is evaluated to either `true` or `false`.
+
+If `a` evaluates to `true`, the code under the `if` statement is executed, and we output `"Hello is truthy"` via the `puts` method. Otherwise, if `a` evaluates the `false`, the code under the `else` statement is executed, and we output `"Hello is falsey"` via the `puts` method.
+
+In this case, `a` references the string object `"Hello"`, which evaluates to `true`. `a`, therefore, references a _truthy_ object. This is because all object in Ruby evaluate to `true` except for `false` and `nil`.
+
+Therefore, the code beneath the `if` statement is executed, and we see `"Hello is truthy"` output to the screen. This is an example of truthiness in Ruby.
+
+### 54
+
+**Current time:** 5:11
+
+What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+```ruby
+def test
+  puts "written assessment"
+end
+
+var = test
+
+if var
+  puts "written assessment"
+else
+  puts "interview"
+end
+```
+
+First we initialize local variable `var` and assign it to the value returned by invoking the `test` method (defined above). Within the `test` method, we invoke the `puts` method and pass it the string `"written assessment"`. This string is output to the console, and `puts` returns `nil`.
+
+Because there is no more code to be evaluated within the `test` method, this also becomes the return value of `test`. `nil`, therefore, is assigned to the local variable `var`.
+
+Next we have an `if...else` conditional statement, where we evaluate the object referenced by `var` for truthiness. If `var` evaluates to `true`, the code under the `if` statement is run, and we invoke the `puts` method with the string `"written assessment"`, which will be output to the console. Otherwise, if `var` evaluates to `false`, the code under the `else` statement gets run, and we invoke the `puts` method with the string `"interview"`, which will be output to the console.
+
+In this case, `var` references the object `nil`. `nil` is one of the few object in Ruby which evaluates to `false`. Therefore, the code under the `else` statement will get run, and we see `"interview"` output to the screen. `puts`, in this case, will also return `nil`. This is an example of a falsey value in Ruby.
