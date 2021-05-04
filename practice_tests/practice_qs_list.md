@@ -53,16 +53,16 @@
   - [x] Ex 9
   - [x] Ex 10
   - [x] Ex 11
-- [ ] Other Collection Methods
+- [x] Other Collection Methods
   - [x] Ex 1
   - [x] Ex 2
   - [x] Ex 3
-  - [ ] Ex 4
-  - [ ] Ex 5
-  - [ ] Ex 6
-  - [ ] Ex 7
-  - [ ] Ex 8
-- [ ] Truthiness
-  - [ ] Ex 1
-  - [ ] Ex 2
+  - [x] Ex 4
+  - [x] Ex 5
+  - [x] Ex 6
+  - [x] Ex 7
+  - [x] Ex 8
+- [x] Truthiness
+  - [x] Ex 1
+  - [x] Ex 2
   

@@ -106,6 +106,8 @@ Review material and notes to prepare for the RB109 Assessment.
 
 ## To-Do
 
+- [ ] Flashcards for "key concepts" behind every point in Table of Contents
+- [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [x] Create local variable scope document
 - [x] Create mutating vs non-mutating methods document
   - [ ] Generate list of mutating methods that do not contain `!`
@@ -126,7 +128,6 @@ Review material and notes to prepare for the RB109 Assessment.
 - [x] Create document for implicit return value of method invocation and blocks
 - [x] Link documents together by creating links in interrelated sections
 - [x] Create a Table of Contents, here, so all aspects of the study guide can be easily accessed.
-- [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [x] Collect number of code snippets and write out my own explanation of what is happening within each (single document)
 - [x] Create some "practice tests" that I can use for timed practice
 - [x] Take timed practice test
