@@ -106,11 +106,10 @@ Review material and notes to prepare for the RB109 Assessment.
 
 ## To-Do
 
-- [ ] Flashcards for "key concepts" behind every point in Table of Contents
-- [ ] Create collection space for explanation of "useful methods", generate my own examples for each.
+- [x] Flashcards for "key concepts" behind every point in Table of Contents
+- [x] Create collection space for explanation of "useful methods", generate my own examples for each.
 - [x] Create local variable scope document
 - [x] Create mutating vs non-mutating methods document
-  - [ ] Generate list of mutating methods that do not contain `!`
 - [x] Create pass-by-reference vs pass-by-value document (within mutating vs non-mutating methods)
 - [x] Create document for working with collections
   - [x] Element reference
