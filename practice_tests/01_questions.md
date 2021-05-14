@@ -142,6 +142,8 @@ What does the following code return? What does it output? Why? What concept does
 
 ```ruby
 [1, 2, 3].each do |num|
+  puts num
+end
 ```
 
 ## 12
@@ -269,7 +271,7 @@ What does the following code return? What does it output? Why? What concept does
 ```ruby
 def fix(value)
   value.upcase!
-  value.concat('!')
+  value += '!'
   value
 end
 
