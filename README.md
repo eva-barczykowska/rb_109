@@ -104,6 +104,11 @@ Review material and notes to prepare for the RB109 Assessment.
     - [Method Invocation](./methods.md#method-invocation)
     - [Arguments vs Parameters](./methods.md#arguments-vs-parameters)
 
+9. Interview Practice Problems
+    - Watch Others Code Series Problems
+      - [Part 4: Substring Test](./practice_problems/watch_others_code/substring_test.rb)
+    - Codewars Problem Solutions
+
 ## To-Do
 
 - [x] Flashcards for "key concepts" behind every point in Table of Contents
