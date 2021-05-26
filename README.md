@@ -109,9 +109,11 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Part 4: Substring Test](./practice_problems/woc_substring_test.rb)
     - Codewars Problem Solutions
     - SPOT & Study Group Problems
-      -[Count the number of duplicates](./practice_problems/spot_count_dups.rb)
-      -[Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
-      -[Substrings Hash](./practice_problems/substrings_hash.rb)
+      - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
+      - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
+      - [Substrings Hash](./practice_problems/substrings_hash.rb)
+      - [Forward/Backward Strings](./practice_problems/forward_backward_strings.rb)
+      - [Min Subarray Sum](./practice_problems/min_subarr_sum.rb)
 
 ## To-Do
 
