@@ -108,6 +108,26 @@ Review material and notes to prepare for the RB109 Assessment.
     - Watch Others Code Series Problems
       - [Part 4: Substring Test](./practice_problems/woc_substring_test.rb)
     - Codewars Problem Solutions
+      - [Count letters in string](https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/solutions/ruby) - 4:00
+      - [Find all pairs](https://www.codewars.com/kata/reviews/5cfa5e532ad4650001e63fe8/groups/60aeacf889308900019475e6) - 7:13
+      - [Return substring instance count](https://www.codewars.com/kata/reviews/516f30297c907a79f200067b/groups/60aeafeb8930890001947662) - 8:24
+      - [Alphabet symmetry](https://www.codewars.com/kata/reviews/5a0a9754d16cba93d900115b/groups/60aeb458534d1f0001f1149d) - 9:42
+      - [Longest vowel chain](https://www.codewars.com/kata/reviews/5a1275d736c5d19eed002742/groups/60aeb640a3a2cf0001e0e99f) - 5:12
+      - [Non-even substrings](https://www.codewars.com/kata/reviews/5a0a8ba68e5bf11cfd003b74/groups/60aeb82ea3a2cf0001e0e9d6) - 5:34
+      - [Substring fun](https://www.codewars.com/kata/reviews/56ce2da25b477c620000002e/groups/5e03c145884174000112580b) - 5:28
+      - [Repeated Substring](https://www.codewars.com/kata/reviews/54f0fce7210f75c03e000084/groups/60aebf9e1a594600010741af) - 18:54
+      - [ ] 9. Typoglycemia Generator
+      - [ ] 10. Most frequently used words in a text
+      - [ ] 11. Extract the domain name from a URL
+      - [Detect Pangram](https://www.codewars.com/kata/reviews/5bf0a06ff8c527ebda000a4e/groups/60aed668534d1f0001f1182b) - 4:34
+      - [Kebabize](https://www.codewars.com/kata/reviews/57fff6c11bb504ea980000b7/groups/60aedaa8a3a2cf0001e0ee01) - 10:24
+      - [Dubstep Song Decoder](https://www.codewars.com/kata/reviews/55936d16a2f51f45be000017/groups/60aedd79534d1f0001f118a1) - 6:18
+      - [Take a Ten Minute Walk](https://www.codewars.com/kata/reviews/55162ffa77dd9e7bc1000156/groups/60aedf90aec59d000148041a) - 5:59
+      - [Spin Words](https://www.codewars.com/kata/reviews/5270aad4b1aa038d2c000189/groups/60aee1a20b93b600017ea884) - 4:13
+      - [Number in Expanded Form](https://www.codewars.com/kata/reviews/58464e0b2435fa35d3000032/groups/60aee4ba534d1f0001f11952) - 10:35
+      - [Persistent Bugger](https://www.codewars.com/kata/reviews/55c6bf11fc0d91691700002b/groups/60aee6deb2e7e90001fa39e3) - 6:54
+      - [Title Case](https://www.codewars.com/kata/reviews/5202f9e6a402dd033c00002a/groups/60aef048367b2e0001fcabef) - 10:25
+      - [Count and group character occurrences](https://www.codewars.com/kata/reviews/543e839381b5fd5833000367/groups/60aef5fc367b2e0001fcac56) - 17:20
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
