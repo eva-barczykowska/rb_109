@@ -128,6 +128,15 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Persistent Bugger](https://www.codewars.com/kata/reviews/55c6bf11fc0d91691700002b/groups/60aee6deb2e7e90001fa39e3) - 6:54
       - [Title Case](https://www.codewars.com/kata/reviews/5202f9e6a402dd033c00002a/groups/60aef048367b2e0001fcabef) - 10:25
       - [Count and group character occurrences](https://www.codewars.com/kata/reviews/543e839381b5fd5833000367/groups/60aef5fc367b2e0001fcac56) - 17:20
+      - [Find the Mine](https://www.codewars.com/kata/reviews/528d9fc1be46d19081000640/groups/60b151c65337d70001b122b4) - 8:43
+      - [Scramblies](https://www.codewars.com/kata/reviews/55f0b9dc6be0544bd30002d5/groups/60b154d14f44260001527e93) - 4:32
+      - [Longest Alphabetical Substring](./practice_problems/cw_longest_alpha_substring.rb)
+      - [The Hashtag Generator](https://www.codewars.com/kata/reviews/5412c2f9648162f83100007a/groups/60b15ec34f44260001527fb4) - 6:57
+      - [Pete, the baker](https://www.codewars.com/kata/reviews/5d7868df14c1b900011334b7/groups/60b16983d4810c0001f40468) - 23:34
+      - [Mean Square Error](https://www.codewars.com/kata/reviews/5e31d087db8fbd00017d6bec/groups/60b16c04d4810c0001f4049e) - 5:10
+      - [Exponent Method](https://www.codewars.com/kata/reviews/5251f642dc71af49250002db/groups/60b16dced4810c0001f404d4) - 3:42
+      - [Where my anagrams?](https://www.codewars.com/kata/reviews/523b40a5ad90113c2b00000f/groups/60b16f94963b480001b0d537)
+      - [Split String](https://www.codewars.com/kata/reviews/516f30267c907a79f2000466/groups/60b17190d4810c0001f40545) - 6:51
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
