@@ -137,6 +137,16 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Exponent Method](https://www.codewars.com/kata/reviews/5251f642dc71af49250002db/groups/60b16dced4810c0001f404d4) - 3:42
       - [Where my anagrams?](https://www.codewars.com/kata/reviews/523b40a5ad90113c2b00000f/groups/60b16f94963b480001b0d537)
       - [Split String](https://www.codewars.com/kata/reviews/516f30267c907a79f2000466/groups/60b17190d4810c0001f40545) - 6:51
+      - [ ] 30. Anagram Difference
+      - [Anagram Detection](https://www.codewars.com/kata/reviews/54ff7a98bae8cd4b6e0003ca/groups/60b672135e3f1d0001d841a9) - 7:34
+      - [Highest Scoring Word](./practice_problems/highest_scoring_word.rb) - 12:19
+      - [Replace with Alphabet Position](./practice_problems/replace)_alpha_position.rb) - 5:37
+      - [Sherlock on pockets](./practice_problems/sherlock_pockets.rb) - 14:30
+      - [Mexican Wave](./practice_problems/mexican_wave.rb) - 7:49
+      - [Delete Digit](./practice_problems/delete_digit.rb) - 7:13
+      - [Multiples Sum](./practice_problems/multiples_sum.rb) - 8:18
+      - [Largest Product](./practice_problems/largest_product.rb) - 16:18
+      - [Duplicate Encoder](./practice_problems/duplicate_encoder.rb) - 4:43
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
