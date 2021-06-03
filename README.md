@@ -147,12 +147,21 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Multiples Sum](./practice_problems/multiples_sum.rb) - 8:18
       - [Largest Product](./practice_problems/largest_product.rb) - 16:18
       - [Duplicate Encoder](./practice_problems/duplicate_encoder.rb) - 4:43
+      - [Backspaces in a String](./practice_problems/backspaces_string.rb)
+      - [Transform to Prime](./practice_problems/transform_prime.rb) - 11:56
+      - [Count Duplicates](./practice_problems/count_duplicates.rb) - 4:03
+      - [Alphabetized](./practice_problems/alphabetized.rb) - 5:25
+      - [Digital Root](./practice_problems/digital_root.rb) - 4:07
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
       - [Substrings Hash](./practice_problems/substrings_hash.rb)
       - [Forward/Backward Strings](./practice_problems/forward_backward_strings.rb)
       - [Min Subarray Sum](./practice_problems/min_subarr_sum.rb)
+      - [Balanced Parenthesis](./practice_problems/balanced_parenthesis.rb)
+      - [Find the Peaks](./practice_problems/find_peaks.rb)
+      - [Ideal Distances Travel](./practice_problems/best_travel.rb) - 24:51
+      - [Max Sums](./practice_problems/max_sums.rb) - 9:35
 
 ## To-Do
 
