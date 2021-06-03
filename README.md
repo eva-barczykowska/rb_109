@@ -152,6 +152,13 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Count Duplicates](./practice_problems/count_duplicates.rb) - 4:03
       - [Alphabetized](./practice_problems/alphabetized.rb) - 5:25
       - [Digital Root](./practice_problems/digital_root.rb) - 4:07
+      - [Array Diff](./practice_problems/array_diff.rb) - 6:34
+      - [Find Children](./practice_problems/find_children.rb) - 10:42
+      - [Playing with Digits](./practice_problems/playing_digits.rb) - 11:06
+      - [Equal Sides of an Array](./practice_problems/equal_sides_array.rb) - 5:46
+      - [Reverse or Rotate?](./practice_problems/rev_rot.rb) - 33:52
+      - [Decipher This!](./practice_problems/decipher.rb) - 14:39
+      - [Bouncing Balls](./practice_problems/bouncing_balls.rb) - 11:51
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
