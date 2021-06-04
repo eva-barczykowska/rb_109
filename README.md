@@ -169,6 +169,7 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Find the Peaks](./practice_problems/find_peaks.rb)
       - [Ideal Distances Travel](./practice_problems/best_travel.rb) - 24:51
       - [Max Sums](./practice_problems/max_sums.rb) - 9:35
+      - [Rotate 13](./practice_problems/rot13.rb) - 17:35
 
 ## To-Do
 
