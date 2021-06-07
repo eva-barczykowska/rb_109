@@ -106,6 +106,9 @@ Review material and notes to prepare for the RB109 Assessment.
 
 9. Interview Practice Problems
     - Watch Others Code Series Problems
+      - [Live Session Part 4: Reverse string](./practice_problems/reverse_str.rb) - 7: 13
+      - [Live Session Part 4: FizzBuzz](./practice_problems/fizzbuzz.rb)
+      - [Live Session Part 4: Search Inventory](./practice_problems/search_inventory.rb)
       - [Part 4: Substring Test](./practice_problems/woc_substring_test.rb)
     - Codewars Problem Solutions
       - [Count letters in string](https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/solutions/ruby) - 4:00
@@ -170,6 +173,7 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Ideal Distances Travel](./practice_problems/best_travel.rb) - 24:51
       - [Max Sums](./practice_problems/max_sums.rb) - 9:35
       - [Rotate 13](./practice_problems/rot13.rb) - 17:35
+      - [Jumbled Strings](./practice_problems/jumbled_str.rb)
 
 ## To-Do
 

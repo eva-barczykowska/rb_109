@@ -62,4 +62,9 @@ def solve(str_num)
   substrings.select { |substring| substring.to_i.odd? }.count
 end
 
-# TODO: think of test cases
+p solve("1341") == 7
+p solve("28462713") == 21
+p solve('') == 0
+p solve("37284779745") == 44
+p solve("11111") == 15
+p solve("4736229571") == 39
