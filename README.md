@@ -176,7 +176,9 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Max Sums](./practice_problems/max_sums.rb) - 9:35
       - [Rotate 13](./practice_problems/rot13.rb) - 17:35
       - [Jumbled Strings](./practice_problems/jumbled_str.rb)
-      - [Unique in Order](./pratice_problems/unique_order.rb)
+      - [Unique in Order](./practice_problems/unique_order.rb)
+      - [Simple Pig Latin](./practice_problems/pig_latin.rb)
+      - [Range Extraction](./practice_problems/range_extraction.rb)
 
 ## To-Do
 
