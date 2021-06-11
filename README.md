@@ -113,6 +113,10 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Live Session Part 5: Find Primes](./practice_problems/find_primes.rb)
       - [Live Session Part 5: Balancer](./practice_problems/balancer.rb) - 9:44
       - [Part 1: Repeated Substrings](./practice_problems/repeated_substrings.rb)
+      - [Part 1: Common Chars](./practice_problems/common_chars.rb) - 19:44
+      - [Part 2: Next Biggest Number](./practice_problems/next_biggest_num.rb) - 20:26
+      - [Part 3: Max Sequence](./practice_problems/max_sequence.rb) - 14:40
+      - [Part 3: Common Prefix](./practice_problems/common_prefix.rb) - 11:40
       - [Part 4: Substring Test](./practice_problems/woc_substring_test.rb)
     - Codewars Problem Solutions
       - [Count letters in string](https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/solutions/ruby) - 4:00
