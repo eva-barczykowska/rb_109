@@ -111,6 +111,7 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Live Session Part 4: Search Inventory](./practice_problems/search_inventory.rb)
       - [Live Session Part 5: Remove Vowels](./practice_problems/remove_vowels.rb) - 3:33
       - [Live Session Part 5: Find Primes](./practice_problems/find_primes.rb)
+      - [Live Session Part 5: Balancer](./practice_problems/balancer.rb) - 9:44
       - [Part 4: Substring Test](./practice_problems/woc_substring_test.rb)
     - Codewars Problem Solutions
       - [Count letters in string](https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/solutions/ruby) - 4:00
