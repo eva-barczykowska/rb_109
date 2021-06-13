@@ -173,6 +173,9 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Reverse or Rotate?](./practice_problems/rev_rot.rb) - 33:52
       - [Decipher This!](./practice_problems/decipher.rb) - 14:39
       - [Bouncing Balls](./practice_problems/bouncing_balls.rb) - 11:51
+      - [Squared Arrays](./practice_problems/squared_arrays.rb) - 11:55
+      - [Grouping and Counting](./practice_problems/group_count.rb) - 5:25
+      - [Find the Nexus](./practice_problems/find_nexus.rb) - 12:33
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
