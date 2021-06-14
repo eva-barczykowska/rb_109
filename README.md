@@ -176,6 +176,8 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Squared Arrays](./practice_problems/squared_arrays.rb) - 11:55
       - [Grouping and Counting](./practice_problems/group_count.rb) - 5:25
       - [Find the Nexus](./practice_problems/find_nexus.rb) - 12:33
+      - [Triple Trouble](./practice_problems/triple_double.rb) - 13:08
+      - [Which Are In?](./practice_problems/which_are_in.rb) - 8:00
     - SPOT & Study Group Problems
       - [Count the number of duplicates](./practice_problems/spot_count_dups.rb)
       - [Odd Integer Substrings](./practice_problems/spot_odd_int_strings.rb)
