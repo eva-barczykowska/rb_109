@@ -193,6 +193,7 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Unique in Order](./practice_problems/unique_order.rb)
       - [Simple Pig Latin](./practice_problems/pig_latin.rb)
       - [Range Extraction](./practice_problems/range_extraction.rb)
+      - [Decode Tongues](./practice_problems/decode_tongues.rb) - 20:03
 
 ## To-Do
 
