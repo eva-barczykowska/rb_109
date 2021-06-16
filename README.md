@@ -121,6 +121,7 @@ Review material and notes to prepare for the RB109 Assessment.
       - [Part 4: Scramble](./practice_problems/scramble.rb) - 9:56
       - [Part 5: Longest Palindrome](./practice_problems/longest_palindrome.rb) - 11:10
       - [Part 6: Find Even Index](/practice_problems/find_even_index.rb) - 13:33
+      - [Sum same consecutive integers](./practice_problems/sum_consecutive_ints.rb) - 11:41
     - Codewars Problem Solutions
       - [Count letters in string](https://www.codewars.com/kata/5808ff71c7cfa1c6aa00006d/solutions/ruby) - 4:00
       - [Find all pairs](https://www.codewars.com/kata/reviews/5cfa5e532ad4650001e63fe8/groups/60aeacf889308900019475e6) - 7:13
