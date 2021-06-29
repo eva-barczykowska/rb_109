@@ -344,3 +344,197 @@ p make_a_sentence(word)
 p word
 ```
 
+## Object Passing
+
+Pass by Reference
+
+```ruby
+def make_uppercase(string)
+  string.upcase!
+end
+
+a = 'hello'
+puts a
+puts make_uppercase(a)
+puts a
+```
+
+Pass by Value
+
+```ruby
+def add_emphasis(string)
+  string += '!'
+end
+
+a = 'hello'
+puts a
+puts add_emphasis(a)
+puts a
+```
+
+## Collections
+
+### Element Reference
+
+String Element Reference
+
+```ruby
+s = 'Hello World'
+puts s[0]
+puts s[2]
+puts s[-1]
+puts s[2, 3]
+puts s[2, 3][2]
+```
+
+Array Element Reference
+
+```ruby
+arr = %w(a b c d e f g)
+arr[0]          
+arr[1]          
+arr [-1]        
+arr[2, 3]       
+arr[2, 3][2]
+```
+
+```ruby
+arr = %w(a b c d e f g)
+arr.slice(3, 1)
+arr.slice(3..3)
+arr.slice(3)
+```
+
+Hash Element Reference
+
+```ruby
+hash = { one: 1, two: 2, three: 3 }
+hash[:one]
+hash[:two]
+
+hsh = { 1 => 'one', 2 => 'two' }
+hash[2][2]
+```
+
+Out of Bounds Indices
+
+```ruby
+string = 'Hello'
+string[5]
+string[-6]
+```
+
+```ruby
+arr = ['one', :two, 3, nil]
+arr[4]
+arr[3]
+
+arr.fetch(3)
+arr.fetch(4)
+```
+
+Invalid Hash Keys
+
+```ruby
+hsh = {one: 'son', two: 'shoe', infinity: nil }
+hsh[:one]
+hsh[:three]
+hsh[:infinity]
+
+hsh.fetch(:infinity)
+hsh.fetch(:three)
+```
+
+### Comparison
+
+The Comparison Operator
+
+```ruby
+2 <=> 1
+1 <=> 2
+2 <=> 2
+
+'b' <=> 'a'
+'a' <=> 'b'
+'a' <=> 'a'
+
+1 <=> 'a'
+```
+
+### Sorting
+
+Sorting Strings
+
+```ruby
+'a' <=> 'b'
+'apple' <=> 'ape'
+'cat' <=> 'catty'
+
+words = %w(card soap knife crab soapy coin sand king kill)
+words.sort
+```
+
+Sorting Arrays
+
+```ruby
+[[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]].sort
+```
+
+### Shallow Copy
+
+Mutating an element in a collection copy
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b  arr_a.dup
+
+arr_b[1].upcase!
+p arr_a
+p arr_b
+```
+
+Mutating a collection copy as a whole
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.map! { |word| word.upcase }
+
+p arr_a
+p arr_b
+```
+
+Mutating each element within a collection copy
+
+```ruby
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.map! { |word| word.upcase! }
+
+p arr_a
+p arr_b
+```
+
+### Each, Select, Map
+
+Each
+
+```ruby
+# What does the following code output? What does it return? When is a good time to use the each method?
+names = ["george", "bobbi", "joel", "susan"]
+names.each do |name|
+  puts name.capitalize
+end
+
+# What if we call the destructive capitalize! method here?
+```
+
+```ruby
+# What does the following code output? What does it return? When is a good time to use the each method?
+names = ["george", "bobbi", "joel", "susan"]
+names = names.each do |name|
+          name.capitalize
+        end
+```
