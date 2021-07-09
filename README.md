@@ -104,7 +104,9 @@ Review material and notes to prepare for the RB109 Assessment.
     - [Method Invocation](./methods.md#method-invocation)
     - [Arguments vs Parameters](./methods.md#arguments-vs-parameters)
 
-9. Interview Practice Problems
+9. [Written Practice Problems](./practice_problems/written_practice_problems.md)
+
+10. Interview Practice Problems
     - Watch Others Code Series Problems
       - [Live Session Part 4: Reverse string](./practice_problems/reverse_str.rb) - 7: 13
       - [Live Session Part 4: FizzBuzz](./practice_problems/fizzbuzz.rb)
