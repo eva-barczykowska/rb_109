@@ -12,7 +12,7 @@
 
 ## Mutating and Non-Mutating Methods
 
-One way to categorize Ruby methods is splitting those that are **mutating** from those that do not. A **mutating method** is one that causes some kind of permanent change to either the object that calls it or one of it's arguments. **Non-mutating methods** will not be able to cause a permanent change to the Objects they manipulate. Instead, they return a new object, whose value can be captured by saving it to a variable.
+One way to categorize Ruby methods is splitting those that are **mutating** from those that are not. A **mutating method** is one that causes some kind of permanent change to either the object that calls it or one of its arguments. **Non-mutating methods** will not be able to cause a permanent change to the Objects they manipulate. Instead, they return a new object, whose value can be captured by saving it to a variable.
 
 ```ruby
 # non-mutating method
@@ -39,7 +39,7 @@ puts "'#{b}' is the object located at #{b.object_id}"
 
 ### Non-Mutating Methods
 
-A non-mutating method is one that does not modify the calling object or any of it's arguments. Often in documentation these methods are said to return `new_obj` instead of `self`. Note that when dealing with **immutable object** (those that cannot be changed, such as integers), all methods can be considered non-mutating.
+A non-mutating method is one that does not modify the calling object or any of its arguments. Often in documentation these methods are said to return `new_obj` instead of `self`. Note that when dealing with **immutable object** (those that cannot be changed, such as integers), all methods can be considered non-mutating.
 
 #### Variable Assignment
 
@@ -105,7 +105,7 @@ a.object_id           # => 440
 
 ### Mutating Methods
 
-If a method modifies one of it's arguments during execution, it is said to be _mutating with respect to its arguments_. This is less common than a method which is _mutating with respect to its caller_, which occurs when a method permanently modifies the calling object.
+If a method modifies one of its arguments during execution, it is said to be _mutating with respect to its arguments_. This is less common than a method which is _mutating with respect to its caller_, which occurs when a method permanently modifies the calling object.
 
 Many mutating methods use `!` at the end of their names to signify this side-effect. There are some methods, however, that do not have this indicator, such as `Array#push` and `String#concat`. If you write any mutating methods in your own code, it's a good idea to include the `!` in their name.
 
@@ -129,7 +129,7 @@ a.each { |element| puts element.object_id }
 
 b = indexed_assignment(a)
 p a
-# => [1, 0 3]
+# => [1, 0, 3]
 p a.object_id
 # => 480
 p b
@@ -138,7 +138,7 @@ p b.object_id
 # => 480
 a.each { |element| puts element.object_id }
 # => 3
-# => 1      (not that this object id has changed)
+# => 1      (note that this object id has changed)
 # => 7
 ```
 
@@ -166,7 +166,7 @@ puts b.object_id    # => 540
 
 ### What is Object Passing?
 
-Object passing is the way in which different programming languages pass objects into methods. ost of the time, these objects are either treated as "references" or "pointers" to the actual object in memory, or as "values", which are considered to be copies of the original object in memory.
+Object passing is the way in which different programming languages pass objects into methods. Most of the time, these objects are either treated as "references" or "pointers" to the actual object in memory, or as "values", which are considered to be copies of the original object in memory.
 
 **Pass by reference**: variables act as pointers, and contain "references" to the actual object.
 
@@ -212,4 +212,4 @@ In reality, Ruby is a pass by reference language, but it passes a _copy_ of that
 
 The key here is the fact that [variables act as pointers](./variables_pointers.md). That is, they contain a reference to the associated object in memory. Just because we pass this reference into a method doesn't necessarily mean the object will automatically be mutated. Non-muting operations, such as reassignment, can change the pointer by causing the variable to point to a different object in memory. Immutable objects, such as integers, cannot be modified. In these cases, a new object is generated and the variable in question then references that object after the operation is concluded.
 
-Whether any particular method acts as pass by reference or acts as pass by value (i.e. whether it is mutating or non-mutating) depends on how it is _defined_. Does the method contain mutating methods within that modify it's arguments or caller destructively? Or does it use methods that return a _new_ object so that those references passed into it remain unchanged?
+Whether any particular method acts as pass by reference or acts as pass by value (i.e. whether it is mutating or non-mutating) depends on how it is _defined_. Does the method contain mutating methods within that modify its arguments or caller destructively? Or does it use methods that return a _new_ object so that those references passed into it remain unchanged?
